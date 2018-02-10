@@ -1,0 +1,36 @@
+﻿body {
+}
+.customDiv {
+    margin-bottom: 4px; 
+    
+    min-height:40px;
+    background-color: silver;
+    text-align: center;
+    font-size:large;
+}
+
+.customLabel {
+    margin-bottom: 2px;
+    /*margin: 2px;*/
+    min-height: 40px;
+    background-color: silver;
+    text-align: center;
+    font-size: large;
+}
+
+.customInputField {
+    
+    margin-bottom: 2px;
+    /*margin: 2px;*/
+    min-height: 40px;
+    text-align: left;
+    font-size: large;
+}
+.customInputButton {
+
+    margin: 2px;
+    min-height: 35px;
+    text-align: center;
+    font-size: large;
+    
+}

@@ -1,0 +1,73 @@
+﻿
+
+@{
+    ViewBag.Title = "EditDepartmentFromList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //var mess = ViewBag.Message;
+}
+
+
+<html>
+<head>
+
+</head>
+
+
+
+<body>
+    <h2>EditDepartmentFromList</h2>
+
+
+
+    
+       <div align="center">
+        @if (ViewBag.Message!= null)
+        {
+            <span id="success-alert">@ViewBag.Message</span>
+        }
+    </div>
+        
+
+    <br />
+
+    <br />
+    <br />
+
+    <br />
+
+    <form method="post" action="EditDepartmentFromList">
+        <fieldset>
+            <legend>Edit Department</legend>
+            <input type="hidden" name="departmentId" value="@Model.departmentId" />
+            <div>
+                <table align="center">
+                    <tr>
+                        <th>Department Code:</th>
+                        <td><input type="text" name="departmentCode" value="@Model.departmentCode" /></td>
+                    </tr>
+                    <tr>
+                        <th>Department Name:</th>
+                        <td><input type="text" name="departmentName" value="@Model.departmentName" /></td>
+                    </tr>
+
+
+                    <tr>
+                        
+                        <td > </td>
+
+                        <td align="right">                            
+                            <input type="button" value="back to list" onclick="location.href='@Url.Action("ViewAllDepartments", "Department")'" /> 
+                            <input type="submit" value="Update" />
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+
+        </fieldset>
+    </form>
+
+</body>
+
+</html>
