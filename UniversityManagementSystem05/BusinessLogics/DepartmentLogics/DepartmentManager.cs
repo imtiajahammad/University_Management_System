@@ -65,7 +65,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
         public int UpdateDepartment(DepartmentModel aDepartmetModel)
         {
             //            string message = "";
-            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.departmentCode)){
+/*            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.departmentCode)){
                 return 5;
             }
 
@@ -73,7 +73,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
                 return 6;
             }
-            else
+            else */
             {
                 int rowAffected = aDepartmentGateway.UpdateDepartment(aDepartmetModel);
 

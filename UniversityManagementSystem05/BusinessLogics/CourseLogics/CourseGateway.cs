@@ -35,11 +35,20 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "INSERT INTO course_tbl(courseCode,courseName,courseCredit,courseDescription,courseDepartment,courseSemester) VALUES (@courseCode,@courseName,@courseCredit,@courseDescription,@courseDepartment,@courseSemester)";
             SqlCommand cmd = new SqlCommand(query, connection);
+
+            
             cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@courseCode", aCourseModel.courseCode);
             cmd.Parameters.AddWithValue("@courseName", aCourseModel.courseName);
             cmd.Parameters.AddWithValue("@courseCredit", aCourseModel.courseCredit);
-            cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
+            if (string.IsNullOrEmpty( aCourseModel.courseDescription))
+            {
+                cmd.Parameters.AddWithValue("@courseDescription", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
+            }
             cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.courseDepartment);
             cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.courseSemester);
 
