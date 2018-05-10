@@ -31,6 +31,7 @@ namespace UniversityManagementSystem05.Controllers
         }
 
         [HttpGet]
+        
         public ActionResult ViewAllDepartments(int? messageFromEdit)
         {
             List<DepartmentModel> departments = new List<DepartmentModel>();
@@ -46,7 +47,7 @@ namespace UniversityManagementSystem05.Controllers
                 ViewBag.MessageViewDepartments = "Department Updated Successfully";
             }
             ViewBag.DepartmentList = departments;
-            int i = 0;
+            //int i = 0;
             return View();
         }
 
