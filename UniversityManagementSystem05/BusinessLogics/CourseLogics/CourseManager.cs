@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UniversityManagementSystem05.BusinessLogics.DepartmentLogics;
 using UniversityManagementSystem05.Models;
 
 namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
@@ -10,11 +11,32 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
     public class CourseManager
     {
         CourseGateway aCourseGateway = new CourseGateway();
+        DepartmentGateway aDepartmentGateway = new DepartmentGateway();
+
+        public List<CourseModel> ViewAllCourses()
+        {
+
+            List<CourseModel> courses = new List<CourseModel>();
+            courses = aCourseGateway.GetAllCourses();
+            return courses;
+        }
+
+
+        public int UpdateDepartment(CourseModel aCourseModel)
+        {
+            {
+                int rowAffected = aCourseGateway.UpdateCourse(aCourseModel);
+                return rowAffected;
+            }
+
+
+        }
+
 
         public List<string> GetDepartmentCodeList()
         {
             List<string> departmentCodeList = new List<string>();
-            departmentCodeList = aCourseGateway.GetDepartmentCodeList();
+            departmentCodeList = aDepartmentGateway.GetDepartmentCodeList();
             return departmentCodeList;
         }
 
@@ -45,6 +67,23 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return message;
         }
 
+        public CourseModel GetCourseForEdit(int courseId)
+        {
+            CourseModel aCourseModel = new CourseModel();
+            aCourseModel = aCourseGateway.GetCourseForEdit(courseId);
+            return aCourseModel;
+        }
+
+        public int DeleteCourse(int courseId)
+        {
+            //          string message = "";
+
+            int rowAffected = aCourseGateway.DeleteCourse(courseId);
+
+
+            //return message;
+            return rowAffected;
+        }
 
     }
 }

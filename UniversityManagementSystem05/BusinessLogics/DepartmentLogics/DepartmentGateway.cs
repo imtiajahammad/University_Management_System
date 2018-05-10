@@ -183,6 +183,25 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             return rowAffected;
         }
 
+        public List<string> GetDepartmentCodeList()
+        {
+            List<string> departmentCodeList = new List<string>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT departmentCode FROM department_tbl";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string DeptCode = reader["departmentCode"].ToString();
+
+
+                departmentCodeList.Add(DeptCode);
+            }
+            connection.Close();
+            return departmentCodeList;
+        }
+
     }
 
     

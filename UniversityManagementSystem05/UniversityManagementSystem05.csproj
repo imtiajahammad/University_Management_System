@@ -109,13 +109,17 @@
     <Compile Include="BusinessLogics\DatabaseConnection\ConnectionString.cs" />
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentGateway.cs" />
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentManager.cs" />
+    <Compile Include="BusinessLogics\TeacherLogics\TeacherGateWay.cs" />
+    <Compile Include="BusinessLogics\TeacherLogics\TeacherManeger.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +142,9 @@
     <Content Include="Views\Department\ViewAllDepartments.cshtml" />
     <Content Include="Views\Department\EditDepartmentFromList.cshtml" />
     <Content Include="Views\Course\SaveCourse.cshtml" />
+    <Content Include="Views\Course\ViewAllCourses.cshtml" />
+    <Content Include="Views\Course\EditCourseFromList.cshtml" />
+    <Content Include="Views\Teacher\SaveTeacher.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

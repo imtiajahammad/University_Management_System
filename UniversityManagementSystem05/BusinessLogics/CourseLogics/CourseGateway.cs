@@ -9,37 +9,28 @@ using UniversityManagementSystem05.Models;
 namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 {
     public class CourseGateway : ConnectionString
-
     {
-        public List<string> GetDepartmentCodeList()
-        {
-            List<string> departmentCodeList = new List<string>();
-            SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT departmentCode FROM department_tbl";
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                string DeptCode = reader["departmentCode"].ToString();
 
-
-                departmentCodeList.Add(DeptCode);
-            }
-            connection.Close();
-            return departmentCodeList;
-        }
 
         public int SaveCourse(CourseModel aCourseModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "INSERT INTO course_tbl(courseCode,courseName,courseCredit,courseDescription,courseDepartment,courseSemester) VALUES (@courseCode,@courseName,@courseCredit,@courseDescription,@courseDepartment,@courseSemester)";
             SqlCommand cmd = new SqlCommand(query, connection);
+
+            
             cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@courseCode", aCourseModel.courseCode);
             cmd.Parameters.AddWithValue("@courseName", aCourseModel.courseName);
             cmd.Parameters.AddWithValue("@courseCredit", aCourseModel.courseCredit);
-            cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
+            if (string.IsNullOrEmpty( aCourseModel.courseDescription))
+            {
+                cmd.Parameters.AddWithValue("@courseDescription", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
+            }
             cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.courseDepartment);
             cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.courseSemester);
 
@@ -110,6 +101,113 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return isCourseNameExists;
         }
 
+        public List<CourseModel> GetAllCourses()
+        {
+            List<CourseModel> courses = new List<CourseModel>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT * FROM course_tbl";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
 
+                CourseModel aCourseModel = new CourseModel();
+                aCourseModel.courseId = Convert.ToInt32(reader["courseId"].ToString());
+                aCourseModel.courseCode = reader["courseCode"].ToString();
+                aCourseModel.courseName = reader["courseName"].ToString();
+                aCourseModel.courseCredit = Convert.ToInt32(reader["courseCredit"].ToString());
+                aCourseModel.courseDescription = reader["courseDescription"].ToString();
+                aCourseModel.courseDepartment = reader["courseDepartment"].ToString();
+                aCourseModel.courseSemester = reader["courseSemester"].ToString();
+
+                courses.Add(aCourseModel);
+            }
+            connection.Close();
+            return courses;
+        }
+
+        public CourseModel GetCourseForEdit(int courseId)
+        {
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT * FROM course_tbl WHERE courseId='" + courseId + "'";
+            SqlCommand command = new SqlCommand(query, connection);
+            // command.Parameters.AddWithValue("@deptId", DeptId);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            CourseModel aCourseModel = new CourseModel();
+            while (reader.Read())
+            {
+                aCourseModel.courseId = Convert.ToInt32(reader["courseId"].ToString());
+                aCourseModel.courseCode = reader["courseCode"].ToString();
+                aCourseModel.courseName = reader["courseName"].ToString();
+                aCourseModel.courseCredit = Convert.ToInt32(reader["courseCredit"].ToString());
+                aCourseModel.courseDescription = reader["courseDescription"].ToString();
+                aCourseModel.courseDepartment = reader["courseDepartment"].ToString();
+                aCourseModel.courseSemester = reader["courseSemester"].ToString();
+
+            }
+
+            connection.Close();
+            return aCourseModel;
+        }
+
+
+        public int DeleteCourse(int courseId)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "DELETE FROM course_tbl WHERE courseId=@courseId";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@courseId", courseId);
+
+            int rowAffected = 0;
+            try
+            {
+                connection.Open();
+                rowAffected = cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            return rowAffected;
+        }
+
+        public int UpdateCourse(CourseModel aCourseModel)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "UPDATE course_tbl SET courseCode=@courseCode,courseName=@courseName,courseCredit=@courseCredit,courseDescription=@courseDescription,courseDepartment=@courseDepartment,courseSemester=@courseSemester WHERE courseId=@courseId";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@courseCode", aCourseModel.courseCode);
+            cmd.Parameters.AddWithValue("@courseName", aCourseModel.courseName);
+            cmd.Parameters.AddWithValue("@courseCredit", aCourseModel.courseCredit);
+            if (string.IsNullOrEmpty(aCourseModel.courseDescription))
+            {
+                cmd.Parameters.AddWithValue("@courseDescription", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
+            }
+            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.courseDepartment);
+            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.courseSemester);
+            cmd.Parameters.AddWithValue("@courseId", aCourseModel.courseId);
+            int rowAffected = 0;
+            try
+            {
+                connection.Open();
+                rowAffected = cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            return rowAffected;
+        }
     }
 }
