@@ -26,17 +26,17 @@
     <link href="~/customDesign/css/ViewDepartmentsCss.css" rel="stylesheet" />
 
 </head>
+
 <body>
     <br />
     <br />
-    <h2 align="center">View All Departments</h2>
+    @*<h2 align="center">View All Departments</h2>*@
     <div align="center">
         @if (ViewBag.MessageViewDepartments != null)
         {
-            <span>@ViewBag.MessageViewDepartments</span>
+            <span class="text-primary">@ViewBag.MessageViewDepartments</span>
         }
         <br />
-
     </div>
 
 
@@ -57,7 +57,7 @@
                                             <th class="info"  ><div class="text-center ">Action</div></th>
                                         </tr>
                                         @foreach (DepartmentModel aDepartmentModel in list)
-                {
+                                        {
                                             <tr>
                                                 <td align="center" > @aDepartmentModel.departmentCode </td>
                                                 <td align="center"> @aDepartmentModel.departmentName </td>
@@ -69,19 +69,15 @@
                                 </div>
                             </fieldset>
                         </form>
-
                     }
-
                 </div>
             </div>
         </div>
     </div>
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-
 </body>
 </html>
 

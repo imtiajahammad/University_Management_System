@@ -30,8 +30,9 @@
     @*<h2 >Save Department</h2>*@
     <div align="center">
         @if (@ViewBag.Message != null)
-            {
-            <span id="success-alert">@ViewBag.Message</span>}
+        {
+                <span id="success-alert" class="text-primary">  @ViewBag.Message </span>
+        }
     </div>
 
     @*<input type="file" multiple="true" />*@
@@ -54,18 +55,18 @@
 
 
                                 <div class="form-group col-md-12">
-                                    <label class="control-label col-md-2">Course Code</label>
-                                    <div class="col-md-10"><input placeholder="dept Code" class="form-control" type="text" maxlength="7" minlength="2" name="departmentcode" required /> </div>
+                                    <label class="control-label col-md-2">Department Code</label>
+                                    <div class="col-md-10"><input placeholder="Department Code" class="form-control" type="text" maxlength="7" minlength="2" name="departmentcode" required /> </div>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label class="control-label col-md-2">department name:</label>
-                                    <div class="col-md-10"><input placeholder="dept name" class="form-control" type="text" name="departmentname" required /> </div>
+                                    <label class="control-label col-md-2">Department Name</label>
+                                    <div class="col-md-10"><input placeholder="Department Name" class="form-control" type="text" name="departmentname" required /> </div>
                                 </div>
 
                                 <div class="form-group col-md-12">
 
                                     <div class="col-md-4 col-md-offset-8 col-xs-6 col-xs-offset-6  btn-group">
-                                        <input class="btn btn-default col-md-6 col-xs-6" type="button" value="view list" onclick="location.href='@Url.Action("ViewAllDepartments", "Department")'" />
+                                        <input class="btn btn-default col-md-6 col-xs-6" type="button" value="View List" onclick="location.href='@Url.Action("ViewAllDepartments", "Department")'" />
                                         <input class="btn btn-default col-md-6 col-xs-6" type="submit" />
                                     </div>
                                 </div>
