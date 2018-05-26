@@ -127,6 +127,22 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return courses;
         }
 
+        public List<string> GetAllSemesters()
+        {
+            List<string> semestersList = new List<string>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT * FROM semester_tbl";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                semestersList.Add(reader["semester"].ToString());
+            }
+            connection.Close();
+            return semestersList;
+        }
+
         public CourseModel GetCourseForEdit(int courseId)
         {
 

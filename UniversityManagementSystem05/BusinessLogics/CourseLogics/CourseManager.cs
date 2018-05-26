@@ -15,10 +15,16 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
         public List<CourseModel> ViewAllCourses()
         {
-
             List<CourseModel> courses = new List<CourseModel>();
             courses = aCourseGateway.GetAllCourses();
             return courses;
+        }
+
+        public List<string> GetAllSemesters()
+        {
+            List<string> semesters = new List<string>();
+            semesters = aCourseGateway.GetAllSemesters();
+            return semesters;
         }
 
 
