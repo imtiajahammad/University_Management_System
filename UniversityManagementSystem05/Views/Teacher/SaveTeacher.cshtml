@@ -68,7 +68,7 @@
                     <label class="control-label col-md-2 ">Teacher Designation</label>
                     <div class="col-md-10">
                         <select class="form-control" required name="teacherDesignation">
-                            <option></option>
+                            <option disabled>Choose a designation</option>
                             @foreach (string a in designations)
                             {
                                 <option value="@a">@a</option>
@@ -80,7 +80,7 @@
                     <label class="control-label col-md-2">Department</label>
                     <div class="col-md-10">
                         <select class="form-control" required name="teacherDepartment">
-                            <option></option>
+                            <option disabled>Choose a department</option>
                             @foreach (var aDepartmentModel in departments)
                             {
                                 <option value="@aDepartmentModel.departmentName">@aDepartmentModel.departmentName</option>
@@ -91,7 +91,7 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-2">Credit to be taken </label>
-                    <div class="col-md-10"><input placeholder="Enter Credit to be taken" class="form-control" type="number" min="0" name="teacherCreditToBeTacken"/>   
+                    <div class="col-md-10"><input placeholder="Enter Credit to be taken" class="form-control" type="number" min="0" name="teacherCreditToBeTaken"/>   
     @*<input class="form-control" type="text" name="courseCredit" max="5.0" min="0.5" step="0.5" required />*@   </div>
                 </div>
 
