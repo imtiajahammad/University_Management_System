@@ -11,7 +11,7 @@ namespace UniversityManagementSystem05.Controllers
 {
     public class TeacherController : Controller
     {
-        TeacherManeger aTeacherManager = new TeacherManeger();
+        TeacherManager aTeacherManager = new TeacherManager();
         // GET: TeacherModel
         [HttpGet]
         public ActionResult SaveTeacher()
@@ -48,20 +48,20 @@ namespace UniversityManagementSystem05.Controllers
         }
 
         [HttpGet]
-        public ActionResult ViewAllTeachers(int? messageFromEdit)
+        public ActionResult ViewAllTeachers(int? message)
         {
             List<TeacherModel> teachers = new List<TeacherModel>();
             teachers = aTeacherManager.GetAllTeachers();
             if (teachers.Count == 0)
             {
-                string message = "No data in the database for teachers";
-                ViewBag.MessageViewCourses = message;
+                string Message = "No data in the database for teachers";
+                ViewBag.Message= message;
             }
-            else if (messageFromEdit > 0)
+            else if (message > 0)
             {
-                ViewBag.MessageViewCourses = "Teacher Updated Successfully";
+                ViewBag.Message= "Teacher Updated Successfully";
             }
-            ViewBag.CourseList = teachers;
+            ViewBag.TeacherList = teachers;
             return View();
         }
 
