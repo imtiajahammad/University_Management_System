@@ -16,7 +16,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
             SqlConnection connection = new SqlConnection(connectionString);
 
-            string query = "SELECT teacherEmail FROM teacher_tbl WHERE teacherEmail= @teacherEmail";
+            string query = "SELECT teacherEmail FROM teacher_tbl WHERE teacherEmail=@teacherEmail";
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.Clear();
