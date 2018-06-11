@@ -110,7 +110,7 @@
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentGateway.cs" />
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentManager.cs" />
     <Compile Include="BusinessLogics\TeacherLogics\TeacherGateWay.cs" />
-    <Compile Include="BusinessLogics\TeacherLogics\TeacherManeger.cs" />
+    <Compile Include="BusinessLogics\TeacherLogics\TeacherManager.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
@@ -145,6 +145,8 @@
     <Content Include="Views\Course\ViewAllCourses.cshtml" />
     <Content Include="Views\Course\EditCourseFromList.cshtml" />
     <Content Include="Views\Teacher\SaveTeacher.cshtml" />
+    <Content Include="Views\Teacher\ViewAllTeachers.cshtml" />
+    <Content Include="Views\Teacher\EditTeacherFromList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
