@@ -15,6 +15,5 @@ namespace UniversityManagementSystem05.Models
         public string teacherDesignation { get; set; }
         public string teacherDepartment { get; set; }
         public int teacherCreditToBeTaken { get; set; }
-
     }
 }
