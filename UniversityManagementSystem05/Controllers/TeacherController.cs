@@ -55,13 +55,13 @@ namespace UniversityManagementSystem05.Controllers
             if (teachers.Count == 0)
             {
                 string message = "No data in the database for teachers";
-                ViewBag.MessageViewCourses = message;
+                ViewBag.Message= message;
             }
             else if (messageFromEdit > 0)
             {
-                ViewBag.MessageViewCourses = "Teacher Updated Successfully";
+                ViewBag.Message= "Teacher Updated Successfully";
             }
-            ViewBag.CourseList = teachers;
+            ViewBag.TeacherList = teachers;
             return View();
         }
 

@@ -145,6 +145,8 @@
     <Content Include="Views\Course\ViewAllCourses.cshtml" />
     <Content Include="Views\Course\EditCourseFromList.cshtml" />
     <Content Include="Views\Teacher\SaveTeacher.cshtml" />
+    <Content Include="Views\Teacher\ViewAllTeachers.cshtml" />
+    <Content Include="Views\Teacher\EditTeacherFromList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
