@@ -225,5 +225,24 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             }
             return rowAffected;
         }
+
+        public List<string> GetCourseCodeList()
+        {
+            List<string> courseCodeList = new List<string>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT courseCode FROM course_tbl";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string DeptCode = reader["courseCode"].ToString();
+
+
+                courseCodeList.Add(DeptCode);
+            }
+            connection.Close();
+            return courseCodeList;
+        }
     }
 }
