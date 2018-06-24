@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "AssignTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var departments = ViewBag.Departments;
+    var teachers= ViewBag.Teachers;
+    var courseCodes = ViewBag.CourseCodeList;
+
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width", initial-scale="1" />
+
+
+    <link href="~/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <br/>
+    <br />
+    <h2 class="text-primary" align="center">Course Assign to Teacher</h2>
+    <div align="center">
+        @if (ViewBag.Message != null)
+        {
+            <span id="success-alert">@ViewBag.Message</span>
+        }
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <form method="post" action="AssignTeacher" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Department:</label>
+                    <div class="col-md-10">
+                        <select class="form-control" required name="department">
+                            <option disabled>Choose a department</option>
+                            @foreach(var a in departments)
+                            {
+                                <option value="@a.departmentId">@a.departmentCode</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Teacher:</label>
+                    <div class="col-md-10">
+                        <select class="form-control" required name="teacher">
+                            <option disabled>Select a teacher</option>
+                            @foreach (var a in teachers)
+                            {
+                                <option value="@a">@a</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Credit to be taken:</label>
+                    <div class="col-md-10"><input class="form-control" required name="teacherCreditToBeTaken" disabled @*value="@teacherCreditToBeTaken"*@ /></div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Remaining Credit:</label>
+                    <div class="col-md-10"><input class="form-control" required name="teacherRemainingCredit" disabled @*value="@teacherRemainingCredit"*@  /></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Course Code:</label>
+                    <div class="col-md-10">
+                        <select class="form-control" required name="courseCode">
+                            <option disabled>Select a Course Code</option>
+                            @foreach(var a in courseCodes)
+                            {
+                            <option value="@a">@a</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Name</label>
+                    <div class="col-md-10"><input class="form-control" name="courseName" disabled  @*value="@courseName"*@ /></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Credit</label>
+                    <div class="col-md-10"><input class="form-control" name="courseCredit" disabled @*value="@courseCredit"*@ /></div>
+                </div>
+                
+                <div class="btn-group col-md-4">
+                    <input class="btn btn-default col-md-2" value="ViewList" type="button" onclick="location.href='@Url.Action("ViewAllCoursesAssigned" , "CourseAssignToTeacher")'" />
+                    <input class="btn btn-default col-md-2" value="Assign" type="submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+

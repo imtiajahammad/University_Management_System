@@ -111,12 +111,14 @@
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentManager.cs" />
     <Compile Include="BusinessLogics\TeacherLogics\TeacherGateWay.cs" />
     <Compile Include="BusinessLogics\TeacherLogics\TeacherManager.cs" />
+    <Compile Include="Controllers\CourseAssignToTeacherController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CourseAssignToTeacherModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
@@ -147,6 +149,7 @@
     <Content Include="Views\Teacher\SaveTeacher.cshtml" />
     <Content Include="Views\Teacher\ViewAllTeachers.cshtml" />
     <Content Include="Views\Teacher\EditTeacherFromList.cshtml" />
+    <Content Include="Views\CourseAssignToTeacher\AssignTeacher.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
