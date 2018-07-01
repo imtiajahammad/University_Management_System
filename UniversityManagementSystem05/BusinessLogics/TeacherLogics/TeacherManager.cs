@@ -39,6 +39,15 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             listOfDepartmentCode = aDepartmentGateway.GetDepartmentCodeList();
             return listOfDepartmentCode;
         }
+
+        public List<string> GetTeachersByDepartment(string dept)
+        {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
+            List<string> teachers = new List<string>();
+            teachers = aTeacherGateWay.GetTeacherwithByDept(dept);
+            return teachers;
+        }
+
         public List<string> GetAllDesignations()
         {
             List<string> designations = new List<string>();

@@ -12,6 +12,8 @@ namespace UniversityManagementSystem05.Controllers
 {
     public class CourseAssignToTeacherController : Controller
     {
+
+        TeacherManager aTeacherManager = new TeacherManager();
         // GET: CourseAssignToTeacher
         public ActionResult Index()
         {
@@ -26,6 +28,16 @@ namespace UniversityManagementSystem05.Controllers
             ViewBag.CourseCodeList = GetAllCourseCodes();
             return View();
         }
+        public JsonResult GetTeacherByDeptId(string dept)
+        {
+            List<string> teachers = new List<string>();
+            teachers = aTeacherManager.GetTeachersByDepartment(dept);
+            //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
+            //return Json(teachers, JsonRequestBehavior.AllowGet);
+            return Json(teachers, JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpPost]
         public ActionResult AssignTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
         {

@@ -116,6 +116,24 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             return aTeacherModel;
         }
 
+
+        public List<string> GetTeacherwithByDept(string department)
+        {
+            List<string> teachers = new List<string>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT teacherDepartment FROM teacher_tbl WHERE teacherDepartment='" + department + "'";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string getDepartment= reader["teacherDepartment"].ToString();
+                teachers.Add(getDepartment);
+            }
+            connection.Close();
+            return teachers;
+        }
+
         public int DeleteTeacher(int teacherId)
         {
             SqlConnection connection= new SqlConnection(connectionString);
