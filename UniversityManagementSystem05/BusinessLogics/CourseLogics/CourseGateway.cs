@@ -244,5 +244,21 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             connection.Close();
             return courseCodeList;
         }
+
+        public List<string> GetCourseNameByCourseCode(string courseCode)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT courseName,courseCredit FROM course_tbl WHERE courseCode=@courseCode";
+            SqlCommand commaand = new SqlCommand(query, connection);
+            commaand.Parameters.Clear();
+            connection.Open();
+            SqlDataReader aSqlDataReader = commaand.ExecuteReader();
+            string courseName = aSqlDataReader["courseName"].ToString();
+            int courseCredit = Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
+            List<string> list = new List<string>();
+            list.Add(courseName);
+            list.Add(courseCredit.ToString());
+            return list;
+        }
     }
 }
