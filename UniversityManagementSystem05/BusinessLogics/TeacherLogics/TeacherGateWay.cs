@@ -121,18 +121,36 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
         {
             List<string> teachers = new List<string>();
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT teacherDepartment FROM teacher_tbl WHERE teacherDepartment='" + department + "'";
+            string query = "SELECT teacherName FROM teacher_tbl WHERE teacherDepartment='" + department + "'";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                string getDepartment= reader["teacherDepartment"].ToString();
+                string getDepartment= reader["teacherName"].ToString();
                 teachers.Add(getDepartment);
             }
             connection.Close();
             return teachers;
         }
+
+        public int GetCreditByTeacherName(string teacherName)
+        {
+            //List<string> teachers = new List<string>();
+            int credit = 0;
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT teacherCreditToBeTaken FROM teacher_tbl WHERE teacherName='" + teacherName + "'";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                credit= Convert.ToInt32(reader["teacherName"].ToString());
+            }
+            connection.Close();
+            return credit;
+        }
+
 
         public int DeleteTeacher(int teacherId)
         {
