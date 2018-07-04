@@ -48,6 +48,19 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             return teachers;
         }
 
+        public int GetCreditByTeacherName(string teacherName)
+        {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
+            return aTeacherGateWay.GetCreditByTeacherName(teacherName);
+        }
+
+        public int getAssignedCreditByTeacherName(string teacherName)
+        {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
+            return aTeacherGateWay.getAssignedCreditByTeacherName(teacherName);
+        }
+
+
         public List<string> GetAllDesignations()
         {
             List<string> designations = new List<string>();
