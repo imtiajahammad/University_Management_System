@@ -28,6 +28,8 @@ namespace UniversityManagementSystem05.Controllers
             ViewBag.CourseCodeList = GetAllCourseCodes();
             return View();
         }
+
+        [HttpPost]
         public JsonResult GetTeacherByDeptId(string dept)
         {
             List<string> teachers = new List<string>();
@@ -36,7 +38,21 @@ namespace UniversityManagementSystem05.Controllers
             //return Json(teachers, JsonRequestBehavior.AllowGet);
             return Json(teachers, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpPost]
+        public JsonResult GetCreditByTeacherName(string teacherName)
+        {
+            return Json(null);
+        }
+        [HttpPost]
+        public JsonResult GetRemainingCreditByTeacherName(string teacherName)
+        {
+            return Json(null);
+        }
+        [HttpPost]
+        public JsonResult GetNameCreditByCourseCode(string courseCode)
+        {
+            return Json(null);
+        }
 
         [HttpPost]
         public ActionResult AssignTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
