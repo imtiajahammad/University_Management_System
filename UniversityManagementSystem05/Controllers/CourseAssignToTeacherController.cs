@@ -41,8 +41,16 @@ namespace UniversityManagementSystem05.Controllers
         [HttpPost]
         public JsonResult GetCreditByTeacherName(string teacherName)
         {
-            return Json(null);
+            int creditToBeTaken = aTeacherManager.GetCreditByTeacherName(teacherName);
+            return Json(creditToBeTaken,JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult getAssignedCreditByTeacherName(string teacherName)
+        {
+            int assignCredit= aTeacherManager.getAssignedCreditByTeacherName(teacherName);
+            return Json(assignCredit, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetRemainingCreditByTeacherName(string teacherName)
         {
