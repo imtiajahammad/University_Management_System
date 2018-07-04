@@ -120,7 +120,7 @@
             var department = $("#departmentDropdownId").val();
             var jasonData = { dept: department };
             //$("#teacherDropdownId").append('<option value=' + "value" + '>' + "value" + '</option>');
-            $.ajax({                 
+            $.ajax({
                     type: "POST",
                     url: '@Url.Action("GetTeacherByDeptId", "CourseAssignToTeacher")',
                     contentType: "application/json; charset=utf-8",
@@ -131,10 +131,42 @@
                     //$("#creditTakenInputId").val("data.d");
                     //alert("data");
                     $.each(data, function (key, value) {
-                            //alert(value); 
+                            //alert(value);
                             $("#teacherDropdownId").append('<option value=' + value + '>' + value + '</option>');
                     });
                 },
+            });
+                //return false;
+        });
+
+            $("#teacherDropdownId").change(function () {
+            alert("teacher dropdown changed");
+            $("#creditTakenInputId").val("");
+            $("#remainingCreditInputId").val("");
+            var teacher = $("#teacherDropdownId").val();
+            alert("selected teacher is" + teacher);
+            var jasonData = { teacherName: teacher };
+            //works till this line            alert("meJason" +jasonData);
+            //$("#teacherDropdownId").append('<option value=' + "value" + '>' + "value" + '</option>');
+            $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCreditByTeacherName", "CourseAssignToTeacher")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(jasonData),
+                    dataType: "json",
+                success: function (data) {
+                    //$("#teacherDropdownId").append('<option '  +  '>' + "Select Teacher" + '</option>');
+                    //$("#creditTakenInputId").val("data.d");
+                    alert("me " + data);
+                    $.each(data, function (key, value) {
+                    alert(value);
+                            //$("#teacherDropdownId").append('<option value=' + value + '>' + value + '</option>');
+                    });
+
+
+                },
+               // failure: function (response) { alert(response.d); },
+                //error: function (response) { alert(response.d); }
             });
                 //return false;
         });
@@ -171,7 +203,7 @@
                 error: function (response) { alert(response.d); }
             });
         });*@
-        
+
 
     });
 
