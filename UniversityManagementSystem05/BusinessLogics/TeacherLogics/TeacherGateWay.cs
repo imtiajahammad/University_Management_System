@@ -143,13 +143,57 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
+            
             while (reader.Read())
             {
-                credit= Convert.ToInt32(reader["teacherName"].ToString());
+                credit= Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
             }
             connection.Close();
             return credit;
         }
+        public int getAssignedCreditByTeacherName(string teacherName)
+        {
+                SqlConnection aSqlConnection = new SqlConnection(connectionString);
+                string query = "SELECT courseCredit FROM courseAssignToTeacher_tbl WHERE teacher=@teacher";
+                SqlCommand aSqlCommand = new SqlCommand(query,aSqlConnection);
+                aSqlCommand.Parameters.Clear();
+                aSqlCommand.Parameters.AddWithValue("@teacher", teacherName);
+                aSqlConnection.Open();
+                SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
+                if (aSqlDataReader.HasRows)
+                {
+                    int assignedCredit = 0;
+                    while (aSqlDataReader.Read())
+                    {
+                        assignedCredit += Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
+                    }
+                    aSqlConnection.Close();
+                    return assignedCredit;
+                }
+                else
+                {
+                    aSqlConnection.Close();
+                    return 0;
+                }
+        }
+        //public bool getCreditAssignedToTeacher(string teacherName)
+        //{
+        //    SqlConnection aSqlConnection = new SqlConnection(connectionString);
+        //    string query = "SELECT courseCredit FROM courseAssignToTeacher_tbl WHERE teacher=@teacher";
+        //    SqlCommand aSqlCommand = new SqlCommand(query, aSqlConnection);
+        //    aSqlCommand.Parameters.Clear();
+        //    aSqlCommand.Parameters.AddWithValue("@teacher",teacherName);
+        //    aSqlConnection.Open();
+        //    SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
+        //    if (aSqlDataReader.HasRows)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
 
         public int DeleteTeacher(int teacherId)
