@@ -45,7 +45,10 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             departmentCodeList = aDepartmentGateway.GetDepartmentCodeList();
             return departmentCodeList;
         }
-
+        public List<string> GetCourseNameCourseCode(string courseCode)
+        {
+            return aCourseGateway.GetCourseNameByCourseCode(courseCode);
+        }
 
         public string SaveCourse(CourseModel aCourseModel)
         {
