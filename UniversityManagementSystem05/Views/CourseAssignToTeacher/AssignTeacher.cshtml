@@ -75,7 +75,7 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2 ">Course Code:</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="courseCode" id="courseCodeId">
+                                        <select class="form-control" required name="courseCode" id="courseCodeDropdownId">
                                             <option value=0>Select a Course Code</option>
                                             @*@foreach (var a in courseCodes)
                                             {
@@ -115,12 +115,11 @@
 <script type='text/javascript'>
     $(function () {
         $("#departmentDropdownId").change(function () {
-            alert("department dropdown changed");
+            //alert("department dropdown changed");
             $("#teacherDropdownId").empty();
             var department = $("#departmentDropdownId").val();
             var jasonData = { dept: department };
-            //$("#teacherDropdownId").append('<option value=' + "value" + '>' + "value" + '</option>');
-            $.ajax({
+            $.ajax({//to get the list of teachers from selected department
                     type: "POST",
                     url: '@Url.Action("GetTeacherByDeptId", "CourseAssignToTeacher")',
                     contentType: "application/json; charset=utf-8",
@@ -128,91 +127,105 @@
                     dataType: "json",
                 success: function (data) {
                     $("#teacherDropdownId").append('<option '  +  '>' + "Select Teacher" + '</option>');
-                    //$("#creditTakenInputId").val("data.d");
-                    //alert("data");
                     $.each(data, function (key, value) {
-                            //alert(value);
                             $("#teacherDropdownId").append('<option value=' + value + '>' + value + '</option>');
                     });
                 },
-            });
-                //return false;
-        });
-
-            $("#teacherDropdownId").change(function () {
-            alert("teacher dropdown changed");
-            $("#creditTakenInputId").val("");
-            $("#remainingCreditInputId").val("");
-            var teacher = $("#teacherDropdownId").val();
-            alert("selected teacher is" + teacher);
-            var jasonData = { teacherName: teacher };
-            //works till this line            alert("meJason" +jasonData);
-            //$("#teacherDropdownId").append('<option value=' + "value" + '>' + "value" + '</option>');
+                failure: function (response) { alert(response.d); },
+                error: function (response) { alert(response.d); }
+            });//return false;
             $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetCreditByTeacherName", "CourseAssignToTeacher")',
+                    url: '@Url.Action("GetCourseCodeByDept", "CourseAssignToTeacher")',
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(jasonData),
                     dataType: "json",
                 success: function (data) {
-                    //$("#teacherDropdownId").append('<option '  +  '>' + "Select Teacher" + '</option>');
-                    //$("#creditTakenInputId").val("data.d");
-                    alert("me " + data);
+                    $("#courseCodeDropdownId").append('<option '  +  '>' + "Select Course Code" + '</option>');
                     $.each(data, function (key, value) {
-                    alert(value);
-                            //$("#teacherDropdownId").append('<option value=' + value + '>' + value + '</option>');
+                        $("#courseCodeDropdownId").append('<option value=' + value + '>' + value + '</option>');
                     });
-
-
-                },
-               // failure: function (response) { alert(response.d); },
-                //error: function (response) { alert(response.d); }
-            });
-                //return false;
-        });
-
-
-        @*$("#teacherDropdownId").change(function () {
-            alert("department dropdown changed");
-            var teacher = $("teacherDropdownId").val();
-            var jasonData = { teacherName: teacher };
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("", "CourseAssignToTeacher")',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(jasonData),
-                dataType: "json",
-                success: function (data) {
-                    alert(data);
-                    $("#creditTakenInputId").val(data.d);
-                },
-
-            });
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("","CourseAssignToTeacher")',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(jasonData),
-                datatype: "json",
-                success: function (data) {
-                    alert(data);
-                    $(#remainingCreditInputId).val(data.d);
                 },
                 failure: function (response) { alert(response.d); },
                 error: function (response) { alert(response.d); }
-            });
-        });*@
+            });//return false;
+        });
+
+            $("#teacherDropdownId").change(function () {
+            $("#creditTakenInputId").val("");
+                $("#remainingCreditInputId").val("");
+                var teacher = $("#teacherDropdownId :selected").text();
+                //alert($("#teacherDropdownId :selected").text());
+                var jasonData = { teacherName: teacher };
+                var teacherCreditToBeTaken = 0;
+                $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetCreditByTeacherName", "CourseAssignToTeacher")',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(jasonData),
+                        dataType: "json",
+                    success: function (data) {
+                        //alert("me " + data);
+                        teacherCreditToBeTaken = data;
+                        //alert(teacherCreditToBeTaken);
+                        $("#creditTakenInputId").val(data);
+                    },
+                    failure: function (response) { alert(response.d); },
+                    error: function (response) { alert(response.d); }
+                });
+                $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("getAssignedCreditByTeacherName", "CourseAssignToTeacher")',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(jasonData),
+                        dataType: "json",
+                    success: function (data) {
+                        //alert("2me1 " + data);
+                        //alert("2me2 " + teacherCreditToBeTaken)
+                        var remainingCredit = parseInt(teacherCreditToBeTaken) - parseInt(data);
+                        $("#remainingCreditInputId").val((remainingCredit));
+                    },
+                    failure: function (response) { alert(response.d); },
+                    error: function (response) { alert(response.d); }
+                });
+        });
+
+
+
 
 
     });
 
 
-    //$(function () {
+    @* $("#teacherDropdownId").change(function () {
+        alert("department dropdown changed");
+        var teacher = $("teacherDropdownId").val();
+        var jasonData = { teacherName: teacher };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("", "CourseAssignToTeacher")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jasonData),
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+                $("#creditTakenInputId").val(data.d);
+            },
 
+        });
 
-
-
-
-    //});
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("","CourseAssignToTeacher")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jasonData),
+            datatype: "json",
+            success: function (data) {
+                alert(data);
+                $(#remainingCreditInputId).val(data.d);
+            },
+            failure: function (response) { alert(response.d); },
+            error: function (response) { alert(response.d); }
+        });
+    });*@
 </script>

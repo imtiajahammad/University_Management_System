@@ -38,7 +38,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
         }
 
-
         public List<string> GetDepartmentCodeList()
         {
             List<string> departmentCodeList = new List<string>();
@@ -48,6 +47,12 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         public List<string> GetCourseNameCourseCode(string courseCode)
         {
             return aCourseGateway.GetCourseNameByCourseCode(courseCode);
+        }
+
+
+        public List<string> GetCourseNameCreditByDept(string dept)
+        {
+            return aCourseGateway.GetCourseNameCreditByDept(dept);
         }
 
         public string SaveCourse(CourseModel aCourseModel)

@@ -14,6 +14,7 @@ namespace UniversityManagementSystem05.Controllers
     {
 
         TeacherManager aTeacherManager = new TeacherManager();
+
         // GET: CourseAssignToTeacher
         public ActionResult Index()
         {
@@ -38,6 +39,19 @@ namespace UniversityManagementSystem05.Controllers
             //return Json(teachers, JsonRequestBehavior.AllowGet);
             return Json(teachers, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetCourseCodeByDept(string dept)
+        {
+            DepartmentManager aDepartmentManager = new DepartmentManager();
+            string deptCode = aDepartmentManager.GetDepartmentCodeByDeptName(dept);
+
+            List<string> course= new List<string>();
+            CourseManager aCourseManager = new CourseManager();
+            course = aCourseManager.GetCourseNameCreditByDept(dept);
+            //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
+            //return Json(teachers, JsonRequestBehavior.AllowGet);
+            return Json(course, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetCreditByTeacherName(string teacherName)
         {
@@ -51,11 +65,11 @@ namespace UniversityManagementSystem05.Controllers
             return Json(assignCredit, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult GetRemainingCreditByTeacherName(string teacherName)
-        {
-            return Json(null);
-        }
+        //[HttpPost]
+        //public JsonResult GetRemainingCreditByTeacherName(string teacherName)
+        //{
+        //    return Json(null);
+        //}
         [HttpPost]
         public JsonResult GetNameCreditByCourseCode(string courseCode)
         {

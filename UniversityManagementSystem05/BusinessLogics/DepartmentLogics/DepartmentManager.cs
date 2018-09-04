@@ -55,6 +55,12 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             return aDepartmentGateway.IsDepartmentNameExist(DeptName);
         }
 
+        public string GetDepartmentCodeByDeptName(string DeptName)
+        {
+            string department= aDepartmentGateway.GetDepartmentCodeByDeptName(DeptName);
+            return department;
+        }
+
         public DepartmentModel GetDepartmentForEdit(int DeptId)
         {
             DepartmentModel aDepartmentModel = new DepartmentModel();

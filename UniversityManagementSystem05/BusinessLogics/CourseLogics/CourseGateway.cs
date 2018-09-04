@@ -251,6 +251,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             string query = "SELECT courseName,courseCredit FROM course_tbl WHERE courseCode=@courseCode";
             SqlCommand commaand = new SqlCommand(query, connection);
             commaand.Parameters.Clear();
+            commaand.Parameters.AddWithValue("@courseCode", courseCode);
             connection.Open();
             SqlDataReader aSqlDataReader = commaand.ExecuteReader();
             string courseName = aSqlDataReader["courseName"].ToString();
@@ -259,6 +260,30 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             list.Add(courseName);
             list.Add(courseCredit.ToString());
             return list;
+        }
+
+        public List<string> GetCourseNameCreditByDept(string dept)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = "SELECT courseName,courseCredit FROM course_tbl WHERE courseDepartment=@courseDepartment";
+            SqlCommand commaand = new SqlCommand(query, connection);
+            commaand.Parameters.Clear();
+            commaand.Parameters.AddWithValue("@courseDepartment", dept);
+            connection.Open();
+            SqlDataReader aSqlDataReader = commaand.ExecuteReader();
+            if (aSqlDataReader.HasRows)
+            {
+                string courseName = aSqlDataReader["courseName"].ToString();
+                int courseCredit = Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
+                List<string> list = new List<string>();
+                list.Add(courseName);
+                list.Add(courseCredit.ToString());
+                return list;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

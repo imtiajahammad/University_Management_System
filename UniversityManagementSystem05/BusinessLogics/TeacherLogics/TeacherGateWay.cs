@@ -139,14 +139,17 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             //List<string> teachers = new List<string>();
             int credit = 0;
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT teacherCreditToBeTaken FROM teacher_tbl WHERE teacherName='" + teacherName + "'";
+            string query = "SELECT teacherCreditToBeTaken FROM teacher_tbl WHERE teacherName=@teacherName";
             SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@teacherName", teacherName);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
-            
-            while (reader.Read())
-            {
-                credit= Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
+            if (reader.HasRows) {
+                while (reader.Read())
+                {
+                    credit = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
+                }
             }
             connection.Close();
             return credit;
