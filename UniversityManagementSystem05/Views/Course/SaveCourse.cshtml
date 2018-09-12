@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "SaveCourse";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var depCodeList = ViewBag.departmentCodeList;
+    var deptList = ViewBag.departmentList;
     var semesterList = ViewBag.semesterList;
 }
 
@@ -72,11 +72,11 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2 ">Course Department</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="courseDepartment">
+                                        <select class="form-control" required name="departmentId">
                                             <option></option>
-                                            @foreach (var a in depCodeList)
+                                            @foreach (var a in deptList)
                                             {
-                                                <option value="@a">@a</option>
+                                                <option value="@a.epartmentId">@a.departmentCode</option>
                                             }
                                         </select>
                                     </div>
@@ -84,11 +84,11 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Course Semester</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="courseSemester">
+                                        <select class="form-control" required name="semesterId">
                                             <option></option>
                                             @foreach (var aa in semesterList)
                                             {
-                                                <option value="@aa">@aa</option>
+                                                <option value="@aa.semesterId">@aa.semesterName</option>
                                             }
                                             @*  <option value="volvo">Volvo</option><option value="saab">Saab</option><option value="mercedes">Mercedes</option><option value="audi">Audi</option>*@
                                         </select>

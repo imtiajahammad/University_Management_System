@@ -19,15 +19,9 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult SaveCourse()
         {
-            List<string> departmentCodeList = aCourseManager.GetDepartmentCodeList();
-
-
-            List<string> semesterList = aCourseManager.GetAllSemesters();
-            //            string[] courseArray = { "1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester" };
-            //            List<string> semesterList = new List<string>();
-            //            string[] array ={"1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester"};
-            //            semesterList = courseArray.ToList();
-            ViewBag.departmentCodeList = departmentCodeList;
+            List<DepartmentModel> departmentCodeList = aCourseManager.GetDepartmentCodeList();
+            List<SemesterModel> semesterList = aCourseManager.GetAllSemesters();
+            ViewBag.departmentList = departmentCodeList;
             ViewBag.semesterList = semesterList;
             return View();
         }

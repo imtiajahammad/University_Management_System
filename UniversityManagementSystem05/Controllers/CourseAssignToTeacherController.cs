@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UniversityManagementSystem05.BusinessLogics.CourseAssignLogics;
 using UniversityManagementSystem05.BusinessLogics.CourseLogics;
 using UniversityManagementSystem05.BusinessLogics.DepartmentLogics;
 using UniversityManagementSystem05.BusinessLogics.TeacherLogics;
@@ -12,8 +13,8 @@ namespace UniversityManagementSystem05.Controllers
 {
     public class CourseAssignToTeacherController : Controller
     {
-
-        TeacherManager aTeacherManager = new TeacherManager();
+        CourseAssignManager aCourseAssignManager = new CourseAssignManager();
+        
 
         // GET: CourseAssignToTeacher
         public ActionResult Index()
@@ -24,9 +25,9 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult AssignTeacher()
         {
-            ViewBag.Departments = GetAllDepartments();
-            ViewBag.Teachers = GetAllTeachers();
-            ViewBag.CourseCodeList = GetAllCourseCodes();
+            ViewBag.Departments = aCourseAssignManager.GetAllDepartments();
+            ViewBag.Teachers = aCourseAssignManager.GetAllTeachers();
+            ViewBag.CourseCodeList = aCourseAssignManager.GetAllCourseCodes();
             return View();
         }
 
@@ -34,7 +35,7 @@ namespace UniversityManagementSystem05.Controllers
         public JsonResult GetTeacherByDeptId(string dept)
         {
             List<string> teachers = new List<string>();
-            teachers = aTeacherManager.GetTeachersByDepartment(dept);
+            teachers = aCourseAssignManager.GetTeachersByDepartment(dept);
             //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
             //return Json(teachers, JsonRequestBehavior.AllowGet);
             return Json(teachers, JsonRequestBehavior.AllowGet);
@@ -81,22 +82,7 @@ namespace UniversityManagementSystem05.Controllers
         {
             return View();
         }
-        public List<DepartmentModel> GetAllDepartments()
-        {
-            DepartmentManager aDepartmentManager = new DepartmentManager();
-            List<DepartmentModel> list = aDepartmentManager.ViewAllDepartments();
-            return list;
-        }
-        public List<TeacherModel> GetAllTeachers()
-        {
-            TeacherManager teacherManager = new TeacherManager();
-            return teacherManager.GetAllTeachers();
-        }
-        public List<CourseModel> GetAllCourseCodes()
-        {
-            CourseManager aCourseManager = new CourseManager();
-            return aCourseManager.ViewAllCourses();
-        }
+
 
 
         [HttpGet]

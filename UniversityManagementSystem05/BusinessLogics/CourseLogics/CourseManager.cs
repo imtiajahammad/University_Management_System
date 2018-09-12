@@ -11,7 +11,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
     public class CourseManager
     {
         CourseGateway aCourseGateway = new CourseGateway();
-        DepartmentGateway aDepartmentGateway = new DepartmentGateway();
+//        DepartmentGateway aDepartmentGateway = new DepartmentGateway();
+        DepartmentManager aDepartmentManager = new DepartmentManager();
 
         public List<CourseModel> ViewAllCourses()
         {
@@ -20,9 +21,9 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return courses;
         }
 
-        public List<string> GetAllSemesters()
+        public List<SemesterModel> GetAllSemesters()
         {
-            List<string> semesters = new List<string>();
+            List<SemesterModel> semesters = new List<SemesterModel>();
             semesters = aCourseGateway.GetAllSemesters();
             return semesters;
         }
@@ -38,11 +39,11 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
         }
 
-        public List<string> GetDepartmentCodeList()
+        public List<DepartmentModel> GetDepartmentCodeList()
         {
-            List<string> departmentCodeList = new List<string>();
-            departmentCodeList = aDepartmentGateway.GetDepartmentCodeList();
-            return departmentCodeList;
+            List<DepartmentModel> departmentList = new List<DepartmentModel>();
+            departmentList = aDepartmentManager.ViewAllDepartments();
+            return departmentList;
         }
         public List<string> GetCourseNameCourseCode(string courseCode)
         {

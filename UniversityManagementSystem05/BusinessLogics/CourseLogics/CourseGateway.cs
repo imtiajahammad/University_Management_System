@@ -31,8 +31,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             {
                 cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
             }
-            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.courseDepartment);
-            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.courseSemester);
+            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.departmentId);
+            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.semesterId);
 
             int rowAffected = 0;
             try
@@ -105,7 +105,12 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         {
             List<CourseModel> courses = new List<CourseModel>();
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT * FROM course_tbl";
+            //string query = "SELECT * FROM course_tbl";
+            string query = "SELECT course_tbl.courseId, course_tbl.courseCode,course_tbl.courseName, " +
+                "course_tbl.courseCredit, course_tbl.courseCredit, course_tbl.courseDescription, department_tbl.departmentName, " +
+                "semester_tbl.semesterName FROM course_tbl " +
+                "INNER JOIN department_tbl ON department_tbl.departmentId = course_tbl.departmentId " +
+                "INNER JOIN semester_tbl ON semester_tbl.id = course_tbl.semesterId; ";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -127,9 +132,9 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return courses;
         }
 
-        public List<string> GetAllSemesters()
+        public List<SemesterModel> GetAllSemesters()
         {
-            List<string> semestersList = new List<string>();
+            List<SemesterModel> semestersList = new List<SemesterModel>();
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM semester_tbl";
             SqlCommand command = new SqlCommand(query, connection);
@@ -137,7 +142,10 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                semestersList.Add(reader["semester"].ToString());
+                SemesterModel aSemesterModel = new SemesterModel();
+                aSemesterModel.semesterId=Convert.ToInt32(reader["id"]);
+                aSemesterModel.semesterName = reader["semesterName"].ToString();
+                semestersList.Add(aSemesterModel);
             }
             connection.Close();
             return semestersList;
