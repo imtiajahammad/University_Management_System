@@ -134,7 +134,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             return department;
         }
 
-        public DepartmentModel GetDepartmentForEdit(int DeptId)
+        public DepartmentModel GetDepartmentById(int DeptId)
         {
             
             SqlConnection connection = new SqlConnection(connectionString);

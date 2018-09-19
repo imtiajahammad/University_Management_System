@@ -4,21 +4,27 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using UniversityManagementSystem05.businessLogics.ConnectionString;
+using UniversityManagementSystem05.BusinessLogics.DepartmentLogics;
+using UniversityManagementSystem05.BusinessLogics.SemesterLogics;
 using UniversityManagementSystem05.Models;
 
 namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 {
     public class CourseGateway : ConnectionString
     {
-
+        DepartmentManager aDepartmentManager = new DepartmentManager();
+        SemesterManager aSemesterManager = new SemesterManager();
+        //SqlConnection connection = new SqlConnection(connectionString);
+        
 
         public int SaveCourse(CourseModel aCourseModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "INSERT INTO course_tbl(courseCode,courseName,courseCredit,courseDescription,courseDepartment,courseSemester) VALUES (@courseCode,@courseName,@courseCredit,@courseDescription,@courseDepartment,@courseSemester)";
+            string query = "INSERT INTO course_tbl(courseCode,courseName,courseCredit,courseDescription,departmentId,semesterId) VALUES (@courseCode,@courseName,@courseCredit,@courseDescription,@departmentId,@semesterId)";
+
             SqlCommand cmd = new SqlCommand(query, connection);
 
-            
+
             cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@courseCode", aCourseModel.courseCode);
             cmd.Parameters.AddWithValue("@courseName", aCourseModel.courseName);
@@ -31,8 +37,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             {
                 cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
             }
-            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.departmentId);
-            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.semesterId);
+            cmd.Parameters.AddWithValue("@departmentId", aCourseModel.departmentId);
+            cmd.Parameters.AddWithValue("@semesterId", aCourseModel.semesterId);
 
             int rowAffected = 0;
             try
@@ -105,51 +111,35 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         {
             List<CourseModel> courses = new List<CourseModel>();
             SqlConnection connection = new SqlConnection(connectionString);
-            //string query = "SELECT * FROM course_tbl";
-            string query = "SELECT course_tbl.courseId, course_tbl.courseCode,course_tbl.courseName, " +
-                "course_tbl.courseCredit, course_tbl.courseCredit, course_tbl.courseDescription, department_tbl.departmentName, " +
-                "semester_tbl.semesterName FROM course_tbl " +
-                "INNER JOIN department_tbl ON department_tbl.departmentId = course_tbl.departmentId " +
-                "INNER JOIN semester_tbl ON semester_tbl.id = course_tbl.semesterId; ";
+            string query = "SELECT * FROM course_tbl";
+            //string query = "SELECT course_tbl.courseId, course_tbl.courseCode,course_tbl.courseName, " +
+            //    "course_tbl.courseCredit, course_tbl.courseDescription, department_tbl.departmentName, " +
+            //    "semester_tbl.semester FROM course_tbl " +
+            //    "INNER JOIN department_tbl ON department_tbl.departmentId = course_tbl.departmentId " +
+            //    "INNER JOIN semester_tbl ON semester_tbl.id = course_tbl.semesterId; ";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-
                 CourseModel aCourseModel = new CourseModel();
                 aCourseModel.courseId = Convert.ToInt32(reader["courseId"].ToString());
                 aCourseModel.courseCode = reader["courseCode"].ToString();
                 aCourseModel.courseName = reader["courseName"].ToString();
                 aCourseModel.courseCredit = Convert.ToInt32(reader["courseCredit"].ToString());
                 aCourseModel.courseDescription = reader["courseDescription"].ToString();
-                aCourseModel.courseDepartment = reader["courseDepartment"].ToString();
-                aCourseModel.courseSemester = reader["courseSemester"].ToString();
-
+                aCourseModel.departmentId = int.Parse(reader["departmentId"].ToString());
+                aCourseModel.semesterId= int.Parse(reader["semesterId"].ToString());
+                aCourseModel.Department = aDepartmentManager.GetDepartmentById(aCourseModel.departmentId);
+                aCourseModel.Semester = aSemesterManager.GetSemesterById(aCourseModel.semesterId);
                 courses.Add(aCourseModel);
             }
+            
             connection.Close();
             return courses;
         }
 
-        public List<SemesterModel> GetAllSemesters()
-        {
-            List<SemesterModel> semestersList = new List<SemesterModel>();
-            SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT * FROM semester_tbl";
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                SemesterModel aSemesterModel = new SemesterModel();
-                aSemesterModel.semesterId=Convert.ToInt32(reader["id"]);
-                aSemesterModel.semesterName = reader["semesterName"].ToString();
-                semestersList.Add(aSemesterModel);
-            }
-            connection.Close();
-            return semestersList;
-        }
+
 
         public CourseModel GetCourseForEdit(int courseId)
         {
@@ -168,14 +158,17 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
                 aCourseModel.courseName = reader["courseName"].ToString();
                 aCourseModel.courseCredit = Convert.ToInt32(reader["courseCredit"].ToString());
                 aCourseModel.courseDescription = reader["courseDescription"].ToString();
-                aCourseModel.courseDepartment = reader["courseDepartment"].ToString();
-                aCourseModel.courseSemester = reader["courseSemester"].ToString();
-
+                aCourseModel.departmentId = int.Parse(reader["departmentId"].ToString());
+                aCourseModel.semesterId = int.Parse(reader["semesterId"].ToString());
             }
+            aCourseModel.Department = aDepartmentManager.GetDepartmentById(aCourseModel.departmentId);
+            aCourseModel.Semester = aSemesterManager.GetSemesterById(aCourseModel.semesterId);
 
             connection.Close();
             return aCourseModel;
         }
+
+
 
 
         public int DeleteCourse(int courseId)
@@ -217,8 +210,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             {
                 cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
             }
-            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.courseDepartment);
-            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.courseSemester);
+            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.departmentId);
+            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.semesterId);
             cmd.Parameters.AddWithValue("@courseId", aCourseModel.courseId);
             int rowAffected = 0;
             try

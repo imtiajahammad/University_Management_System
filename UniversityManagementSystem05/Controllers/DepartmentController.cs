@@ -99,7 +99,7 @@ namespace UniversityManagementSystem05.Controllers
 
             }
             DepartmentModel aDepartmentModel = new DepartmentModel();
-            aDepartmentModel=aDepartmentManager.GetDepartmentForEdit(departmentId);
+            aDepartmentModel=aDepartmentManager.GetDepartmentById(departmentId);
             return View(aDepartmentModel);
         }
 

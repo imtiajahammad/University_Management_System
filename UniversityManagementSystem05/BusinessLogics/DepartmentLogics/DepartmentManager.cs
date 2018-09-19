@@ -61,10 +61,10 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             return department;
         }
 
-        public DepartmentModel GetDepartmentForEdit(int DeptId)
+        public DepartmentModel GetDepartmentById(int DeptId)
         {
             DepartmentModel aDepartmentModel = new DepartmentModel();
-            aDepartmentModel = aDepartmentGateway.GetDepartmentForEdit(DeptId);
+            aDepartmentModel = aDepartmentGateway.GetDepartmentById(DeptId);
             return aDepartmentModel;
         }
 
