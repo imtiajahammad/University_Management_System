@@ -19,9 +19,9 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult SaveCourse()
         {
-            List<DepartmentModel> departmentCodeList = aCourseManager.GetDepartmentCodeList();
+            List<DepartmentModel> departmentList = aCourseManager.GetDepartmentCodeList();
             List<SemesterModel> semesterList = aCourseManager.GetAllSemesters();
-            ViewBag.departmentList = departmentCodeList;
+            ViewBag.departmentList = departmentList;
             ViewBag.semesterList = semesterList;
             return View();
         }
@@ -32,11 +32,15 @@ namespace UniversityManagementSystem05.Controllers
             string message = "";
             message = aCourseManager.SaveCourse(aCourseModel);
             ViewBag.Message = message;
-            List<string> departmentCodeList = aCourseManager.GetDepartmentCodeList();
+            //List<string> departmentCodeList = aCourseManager.GetDepartmentCodeList();
             //string[] courseArray = { "1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester" };
-            List<string> semesterList = aCourseManager.GetAllSemesters();
+            // List<string> semesterList = aCourseManager.GetAllSemesters();
             //string[] array ={"1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester"};
-            ViewBag.departmentCodeList = departmentCodeList;
+            //ViewBag.departmentCodeList = departmentCodeList;
+            // ViewBag.semesterList = semesterList;
+            List<DepartmentModel> departmentList = aCourseManager.GetDepartmentCodeList();
+            List<SemesterModel> semesterList = aCourseManager.GetAllSemesters();
+            ViewBag.departmentList = departmentList;
             ViewBag.semesterList = semesterList;
             return View();
         }

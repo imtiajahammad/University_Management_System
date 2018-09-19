@@ -11,7 +11,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
+     
 
     <link href="~/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -62,8 +62,8 @@
                                                 <td align="center">@aCourseModel.courseName</td>
                                                 <td align="center">@aCourseModel.courseCredit</td>
                                                 <td align="center">@aCourseModel.courseDescription</td>
-                                                <td align="center">@aCourseModel.courseDepartment</td>
-                                                <td align="center">@aCourseModel.courseSemester</td>
+                                                <td align="center">@aCourseModel.department</td>
+                                                <td align="center">@aCourseModel.semester</td>
                                                 <td align="center"> <a href="@Url.Action("EditCourseFromList", "Course", new { courseId=aCourseModel.courseId})">Edit</a> | <a href="@Url.Action("DeleteCourseFromList", "Course", new { courseId=aCourseModel.courseId})">Delete</a> </td>
                                             </tr>
                                         }
