@@ -145,6 +145,8 @@
     <Compile Include="BusinessLogics\DatabaseConnection\ConnectionString.cs" />
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentGateway.cs" />
     <Compile Include="BusinessLogics\DepartmentLogics\DepartmentManager.cs" />
+    <Compile Include="BusinessLogics\SemesterLogics\SemesterGateway.cs" />
+    <Compile Include="BusinessLogics\SemesterLogics\SemesterManager.cs" />
     <Compile Include="BusinessLogics\TeacherLogics\TeacherGateWay.cs" />
     <Compile Include="BusinessLogics\TeacherLogics\TeacherManager.cs" />
     <Compile Include="Controllers\CourseAssignToTeacherController.cs" />

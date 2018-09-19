@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UniversityManagementSystem05.BusinessLogics.DepartmentLogics;
+using UniversityManagementSystem05.BusinessLogics.SemesterLogics;
 using UniversityManagementSystem05.Models;
 
 namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
@@ -13,6 +14,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         CourseGateway aCourseGateway = new CourseGateway();
 //        DepartmentGateway aDepartmentGateway = new DepartmentGateway();
         DepartmentManager aDepartmentManager = new DepartmentManager();
+        SemesterManager aSemesterManager = new SemesterManager();
 
         public List<CourseModel> ViewAllCourses()
         {
@@ -21,12 +23,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return courses;
         }
 
-        public List<SemesterModel> GetAllSemesters()
-        {
-            List<SemesterModel> semesters = new List<SemesterModel>();
-            semesters = aCourseGateway.GetAllSemesters();
-            return semesters;
-        }
+
 
 
         public int UpdateDepartment(CourseModel aCourseModel)
@@ -98,6 +95,13 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
             //return message;
             return rowAffected;
+        }
+
+        public List<SemesterModel> GetAllSemesters()
+        {
+            List<SemesterModel> semesters = new List<SemesterModel>();
+            semesters = aSemesterManager.GetAllSemesters();
+            return semesters;
         }
 
     }

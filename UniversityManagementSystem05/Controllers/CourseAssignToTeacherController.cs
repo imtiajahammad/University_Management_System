@@ -32,10 +32,10 @@ namespace UniversityManagementSystem05.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetTeacherByDeptId(string dept)
+        public JsonResult GetTeacherByDeptId(int deptId)
         {
             List<string> teachers = new List<string>();
-            teachers = aCourseAssignManager.GetTeachersByDepartment(dept);
+            //teachers = aCourseAssignManager.GetTeachersByDepartment(dept);
             //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
             //return Json(teachers, JsonRequestBehavior.AllowGet);
             return Json(teachers, JsonRequestBehavior.AllowGet);
@@ -53,18 +53,18 @@ namespace UniversityManagementSystem05.Controllers
             return Json(course, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult GetCreditByTeacherName(string teacherName)
-        {
-            int creditToBeTaken = aTeacherManager.GetCreditByTeacherName(teacherName);
-            return Json(creditToBeTaken,JsonRequestBehavior.AllowGet);
-        }
+        //[HttpPost]
+        //public JsonResult GetCreditByTeacherName(string teacherName)
+        //{
+        //    int creditToBeTaken = aTeacherManager.GetCreditByTeacherName(teacherName);
+        //    return Json(creditToBeTaken,JsonRequestBehavior.AllowGet);
+        //}
 
-        public JsonResult getAssignedCreditByTeacherName(string teacherName)
-        {
-            int assignCredit= aTeacherManager.getAssignedCreditByTeacherName(teacherName);
-            return Json(assignCredit, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult getAssignedCreditByTeacherName(string teacherName)
+        //{
+        //    int assignCredit= aTeacherManager.getAssignedCreditByTeacherName(teacherName);
+        //    return Json(assignCredit, JsonRequestBehavior.AllowGet);
+        //}
 
         //[HttpPost]
         //public JsonResult GetRemainingCreditByTeacherName(string teacherName)
