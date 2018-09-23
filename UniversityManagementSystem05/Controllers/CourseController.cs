@@ -22,7 +22,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult SaveCourse()
         {
-            List<DepartmentModel> departmentList =   aCourseManager.GetDepartmentCodeList();
+            List<DepartmentModel> departmentList =   aCourseManager.GetDepartmentList();
             List<SemesterModel> semesterList =  aCourseManager.GetAllSemesters();
             ViewBag.departmentList = departmentList;
             ViewBag.semesterList = semesterList;
@@ -35,18 +35,26 @@ namespace UniversityManagementSystem05.Controllers
             string message = "";
             message = aCourseManager.SaveCourse(aCourseModel);
             ViewBag.Message = message;
-            //List<string> departmentCodeList = aCourseManager.GetDepartmentCodeList();
+            //List<string> departmentCodeList = aCourseManager.GetDepartmentList();
             //string[] courseArray = { "1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester" };
             // List<string> semesterList = aCourseManager.GetAllSemesters();
             //string[] array ={"1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester"};
             //ViewBag.departmentCodeList = departmentCodeList;
             // ViewBag.semesterList = semesterList;
-            List<DepartmentModel> departmentList = aCourseManager.GetDepartmentCodeList();
+            List<DepartmentModel> departmentList = aCourseManager.GetDepartmentList();
             List<SemesterModel> semesterList = aCourseManager.GetAllSemesters();
             ViewBag.departmentList = departmentList;
             ViewBag.semesterList = semesterList;
             return View();
         }
+
+        public JsonResult GetDepartments()
+        {
+            List<DepartmentModel> departments = new List<DepartmentModel>();
+            departments = aCourseManager.GetDepartmentList();
+            return Json(departments, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpGet]
         public ActionResult ViewAllCourses(int? messageFromEdit)
@@ -90,6 +98,12 @@ namespace UniversityManagementSystem05.Controllers
             }
             CourseModel aCourseModel = new CourseModel();
             aCourseModel = aCourseManager.GetCourseForEdit(courseId);
+            List<DepartmentModel> departments = aCourseManager.GetDepartmentList();
+            
+            
+            List<SemesterModel> semesters = aCourseManager.GetAllSemesters();
+            ViewBag.Depts = departments;
+            ViewBag.Sems = semesters;
             return View(aCourseModel);
         }
 
@@ -99,7 +113,7 @@ namespace UniversityManagementSystem05.Controllers
         {
             //string message = "";
             int rowAffected;
-            rowAffected = aCourseManager.UpdateDepartment(aCourseModel);
+            rowAffected = aCourseManager.UpdateCourse(aCourseModel);
 
             //ViewBag.Message2 = message;
             if (rowAffected == 1)

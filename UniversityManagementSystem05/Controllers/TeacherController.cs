@@ -17,7 +17,7 @@ namespace UniversityManagementSystem05.Controllers
         public ActionResult SaveTeacher()
         {
             DepartmentManager aDepartmentManager = new DepartmentManager();
-            List<DepartmentModel> departmentList = aDepartmentManager.ViewAllDepartments();
+            List<DepartmentModel> departmentList = aDepartmentManager.GetAllDepartments();
             ViewBag.departments = departmentList;
 
             //string[] designationArray = { "Professor","Assistance Professor","Senior Teacher","Junior Teacher"};
@@ -38,7 +38,7 @@ namespace UniversityManagementSystem05.Controllers
 
 
             DepartmentManager aDepartmentManager = new DepartmentManager();
-            List<DepartmentModel> departmentList = aDepartmentManager.ViewAllDepartments();
+            List<DepartmentModel> departmentList = aDepartmentManager.GetAllDepartments();
             ViewBag.departments = departmentList;
 
             List<string> designations = aTeacherManager.GetAllDesignations();

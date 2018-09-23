@@ -35,11 +35,11 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             return message;
         }
 
-        public List<DepartmentModel> ViewAllDepartments()
+        public List<DepartmentModel> GetAllDepartments()
         {
 
             List<DepartmentModel> departments = new List<DepartmentModel>();
-            departments = aDepartmentGateway.GetAllDepartment();
+            departments = aDepartmentGateway.GetAllDepartments();
             return departments;
         }
 
