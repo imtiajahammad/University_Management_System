@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "EditTeacherFromList";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var Depts = ViewBag.Depts;
+    var Designations = ViewBag.Designations;
 }
 
 <html lang="en">
@@ -33,7 +36,7 @@
     <div align="center">
         @if (ViewBag.Message != null)
         {
-            <span id="success-alert" class="i">@ViewBag.Message</span>
+            <span id="success-alert" class="text-info">@ViewBag.Message</span>
         }
     </div>
 
@@ -52,43 +55,83 @@
                         <div class="row col-md-12">
                             <form method="post" action="EditTeacherFromList" class="form-horizontal col-md-12">
 
-                                <input type="hidden" name="teacherId" value="@Model.teacherId" />
+                                <input type="hidden" name="TeacherId" value="@Model.TeacherId" />
 
 
 
 
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Name:</label>
-                                    <div class="col-md-10"><input class="form-control" type="text" name="teacherName" value="@Model.teacherName" required /> </div>
+                                    <div class="col-md-10"><input class="form-control" type="text" name="TeacherName" value="@Model.TeacherName" required /> </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Address:</label>
-                                    <div class="col-md-10"><input class="form-control" type="text" name="teacherAddress" value="@Model.teacherAddress" required /> </div>
+                                    <div class="col-md-10"><input class="form-control" type="text" name="TeacherAddress" value="@Model.TeacherAddress" required /> </div>
                                 </div>
 
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Email:</label>
-                                    <div class="col-md-10"><input class="form-control" type="email" name="teacherEmail" value="@Model.teacherEmail" required /> </div>
+                                    <div class="col-md-10"><input class="form-control" type="email" name="TeacherEmail" value="@Model.TeacherEmail" required /> </div>
                                 </div>
 
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Number:</label>
-                                    <div class="col-md-10"><input class="form-control" type="tel" name="teacherNumber" value="@Model.teacherNumber" /> </div>
+                                    <div class="col-md-10"><input class="form-control" type="tel" name="TeacherNumber" value="@Model.TeacherNumber" /> </div>
                                 </div>
 
-                                <div class="form-group col-md-12">
+                                @*<div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Designation:</label>
                                     <div class="col-md-10"><input class="form-control" type="text" name="teacherDesignation" value="@Model.teacherDesignation" required /> </div>
-                                </div>
+                                </div>*@
 
                                 <div class="form-group col-md-12">
+                                    <label class="control-label col-md-2 ">Teacher Designation:</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" required name="DesignationId">
+                                            <option value="0"></option>
+                                            @foreach (var a in Designations)
+                                            {
+                                                if (a.DesignationId == Model.DesignationId)
+                                                {
+                                                    <option selected value="@a.DesignationId">@a.Designation</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@a.DesignationId">@a.Designation</option>
+                                                }
+                                            }   
+                                        </select>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Department:</label>
                                     <div class="col-md-10"><input class="form-control" type="text" name="teacherDepartment" value="@Model.teacherDepartment" required /> </div>
+                                </div>*@
+                                <div class="form-group col-md-12">
+                                    <label class="control-label col-md-2 ">Teacher Department:</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" required name="DepartmentId">
+                                            <option value="0"></option>
+                                            @foreach (var a in Depts)
+                                            {
+                                                if (a.DepartmentId == Model.DepartmentId)
+                                                {
+                                                        <option selected value="@a.DepartmentId">@a.DepartmentName</option>
+                                                }
+                                                else
+                                                {
+                                                        <option value="@a.DepartmentId">@a.DepartmentName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
+
 
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher Credit To Be Taken:</label>
-                                    <div class="col-md-10"><input class="form-control" type="number" min="0" name="teacherCreditToBeTaken" value="@Model.teacherCreditToBeTaken" required /> </div>
+                                    <div class="col-md-10"><input class="form-control" type="number" min="0" name="TeacherCreditToBeTaken" value="@Model.TeacherCreditToBeTaken" required /> </div>
                                 </div>
 
 

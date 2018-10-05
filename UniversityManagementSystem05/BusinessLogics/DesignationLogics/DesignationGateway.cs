@@ -32,7 +32,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DesignationLogics
         {
             DesignationModel aDesignationModel = new DesignationModel();
             SqlConnection aSqlConnection = new SqlConnection(connectionString);
-            string query = "SELECT * FROM designation_tbl";
+            string query = "SELECT * FROM designation_tbl WHERE id='" + designationId + "'";
             SqlCommand aSqlCommand = new SqlCommand(query, aSqlConnection);
             aSqlConnection.Open();
             SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();

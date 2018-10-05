@@ -63,8 +63,8 @@ namespace UniversityManagementSystem05.Controllers
             teachers = aTeacherManager.GetAllTeachers();
             if (teachers.Count == 0)
             {
-                string Message = "No data in the database for teachers";
-                ViewBag.Message= message;
+                string msg = "No data in the database for teachers";
+                ViewBag.Message= msg;
             }
             else if (message > 0)
             {
@@ -93,6 +93,12 @@ namespace UniversityManagementSystem05.Controllers
             }
             TeacherModel aTeacherModel = new TeacherModel();
             aTeacherModel = aTeacherManager.GetTeacherForEdit(teacherId);
+
+            List<DepartmentModel> depts= aTeacherManager.GetAllDepartments();
+            List<DesignationModel> designations = aTeacherManager.GetAllDesignations();
+            ViewBag.Depts = depts;
+            ViewBag.Designations = designations;
+
             return View(aTeacherModel);
         }
 
@@ -100,7 +106,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpPost]
         public ActionResult EditTeacherFromList(TeacherModel aTeacherModel)
         {
-            //string message = "";
+            //string message = "";  
             int rowAffected;
             rowAffected = aTeacherManager.UpdateTeacher(aTeacherModel);
 

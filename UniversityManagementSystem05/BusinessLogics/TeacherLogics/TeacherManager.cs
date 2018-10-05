@@ -70,6 +70,13 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             return designations;
         }
 
+        public List<DepartmentModel> GetAllDepartments()
+        {
+            List<DepartmentModel> listOfDepartments= new List<DepartmentModel>();
+            listOfDepartments= aDepartmentGateway.GetAllDepartments();
+            return listOfDepartments;
+        }
+
         public List<TeacherModel> GetAllTeachers()
         {
             List<TeacherModel> teachers = aTeacherGateWay.GetAllTeachers();

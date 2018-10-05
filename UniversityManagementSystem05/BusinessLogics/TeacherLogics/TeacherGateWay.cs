@@ -117,7 +117,9 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
                 aTeacherModel.TeacherEmail = reader["teacherEmail"].ToString();
                 aTeacherModel.TeacherNumber = reader["teacherNumber"].ToString();
                 aTeacherModel.DesignationId = int.Parse(reader["designationId"].ToString());
+                aTeacherModel.Designation = aDesignationManager.GetDesignationById(aTeacherModel.DesignationId);
                 aTeacherModel.DepartmentId = int.Parse(reader["departmentId"].ToString());
+                aTeacherModel.Department = aDepartmentManager.GetDepartmentById(aTeacherModel.DepartmentId);
                 aTeacherModel.TeacherCreditToBeTaken = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
             }
             connection.Close();
@@ -251,7 +253,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             commmand.Parameters.AddWithValue("@designationId", aTeacherModel.DesignationId);
             commmand.Parameters.AddWithValue("@departmentId", aTeacherModel.DepartmentId);
             commmand.Parameters.AddWithValue("@teacherCreditToBeTaken", aTeacherModel.TeacherCreditToBeTaken);
-            //commmand.Parameters.AddWithValue("@teacherId",aTeacherModel.TeacherId);
+            commmand.Parameters.AddWithValue("@teacherId",aTeacherModel.TeacherId);
             int rowAffected = 0;
             try
             {
