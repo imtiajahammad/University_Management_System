@@ -4,12 +4,19 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using UniversityManagementSystem05.businessLogics.ConnectionString;
+using UniversityManagementSystem05.BusinessLogics.DepartmentLogics;
+using UniversityManagementSystem05.BusinessLogics.DesignationLogics;
 using UniversityManagementSystem05.Models;
 
 namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 {
     public class TeacherGateWay: ConnectionString
     {
+        DesignationManager aDesignationManager = new DesignationManager();
+        DepartmentManager aDepartmentManager = new DepartmentManager();
+
+
+
         public bool IsTeacherEmailExist(string teacherEmail)
         {
             bool isTeacherEmailExist = false;
@@ -39,18 +46,18 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
         public int SaveTeacher(TeacherModel aTeacherModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "INSERT INTO teacher_tbl(teacherName,teacherAddress,teacherEmail,teacherNumber,teacherDesignation,teacherDepartment,teacherCreditToBeTaken) VALUES (@teacherName,@teacherAddress,@teacherEmail,@teacherNumber,@teacherDesignation,@teacherDepartment,@teacherCreditToBeTaken)";
+            string query = "INSERT INTO teacher_tbl(teacherName,teacherAddress,teacherEmail,teacherNumber,designationId,departmentId,teacherCreditToBeTaken) VALUES (@teacherName,@teacherAddress,@teacherEmail,@teacherNumber,@designationId,@departmentId,@teacherCreditToBeTaken)";
             SqlCommand cmd = new SqlCommand(query, connection);
 
 
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@teacherName", aTeacherModel.teacherName);
-            cmd.Parameters.AddWithValue("@teacherAddress", aTeacherModel.teacherAddress);
-            cmd.Parameters.AddWithValue("@teacherEmail", aTeacherModel.teacherEmail);
-            cmd.Parameters.AddWithValue("@teacherNumber", aTeacherModel.teacherNumber);
-            cmd.Parameters.AddWithValue("@teacherDesignation", aTeacherModel.teacherDesignation);
-            cmd.Parameters.AddWithValue("@teacherDepartment", aTeacherModel.teacherDepartment);
-            cmd.Parameters.AddWithValue("@teacherCreditToBeTaken", aTeacherModel.teacherCreditToBeTaken);
+            cmd.Parameters.AddWithValue("@teacherName", aTeacherModel.TeacherName);
+            cmd.Parameters.AddWithValue("@teacherAddress", aTeacherModel.TeacherAddress);
+            cmd.Parameters.AddWithValue("@teacherEmail", aTeacherModel.TeacherEmail);
+            cmd.Parameters.AddWithValue("@teacherNumber", aTeacherModel.TeacherNumber);
+            cmd.Parameters.AddWithValue("@designationId", aTeacherModel.DesignationId);
+            cmd.Parameters.AddWithValue("@departmentId", aTeacherModel.DepartmentId);
+            cmd.Parameters.AddWithValue("@teacherCreditToBeTaken", aTeacherModel.TeacherCreditToBeTaken);
             
 
             int rowAffected = 0;
@@ -77,16 +84,17 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-
                 TeacherModel aTeacherModel = new TeacherModel();
-                aTeacherModel.teacherId= Convert.ToInt32(reader["teacherId"].ToString());
-                aTeacherModel.teacherName = reader["teacherName"].ToString();
-                aTeacherModel.teacherAddress = reader["teacherAddress"].ToString();
-                aTeacherModel.teacherEmail = reader["teacherEmail"].ToString();
-                aTeacherModel.teacherNumber = reader["teacherNumber"].ToString();
-                aTeacherModel.teacherDesignation = reader["teacherDesignation"].ToString();
-                aTeacherModel.teacherDepartment = reader["teacherDepartment"].ToString();
-                aTeacherModel.teacherCreditToBeTaken = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
+                aTeacherModel.TeacherId= Convert.ToInt32(reader["teacherId"].ToString());
+                aTeacherModel.TeacherName = reader["teacherName"].ToString();
+                aTeacherModel.TeacherAddress = reader["teacherAddress"].ToString();
+                aTeacherModel.TeacherEmail = reader["teacherEmail"].ToString();
+                aTeacherModel.TeacherNumber = reader["teacherNumber"].ToString();
+                aTeacherModel.DesignationId = int.Parse(reader["designationId"].ToString());
+                aTeacherModel.Designation = aDesignationManager.GetDesignationById(aTeacherModel.DesignationId);
+                aTeacherModel.DepartmentId = int.Parse(reader["departmentId"].ToString());
+                aTeacherModel.Department = aDepartmentManager.GetDepartmentById(aTeacherModel.DepartmentId);
+                aTeacherModel.TeacherCreditToBeTaken = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
                 teachers.Add(aTeacherModel);
             }
             connection.Close();
@@ -103,49 +111,60 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             TeacherModel aTeacherModel = new TeacherModel();
             while (reader.Read())
             {
-                aTeacherModel.teacherId = Convert.ToInt32(reader["teacherId"].ToString());
-                aTeacherModel.teacherName = reader["teacherName"].ToString();
-                aTeacherModel.teacherAddress = reader["teacherAddress"].ToString();
-                aTeacherModel.teacherEmail = reader["teacherEmail"].ToString();
-                aTeacherModel.teacherNumber = reader["teacherNumber"].ToString();
-                aTeacherModel.teacherDesignation = reader["teacherDesignation"].ToString();
-                aTeacherModel.teacherDepartment = reader["teacherDepartment"].ToString();
-                aTeacherModel.teacherCreditToBeTaken = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
+                aTeacherModel.TeacherId = Convert.ToInt32(reader["teacherId"].ToString());
+                aTeacherModel.TeacherName = reader["teacherName"].ToString();
+                aTeacherModel.TeacherAddress = reader["teacherAddress"].ToString();
+                aTeacherModel.TeacherEmail = reader["teacherEmail"].ToString();
+                aTeacherModel.TeacherNumber = reader["teacherNumber"].ToString();
+                aTeacherModel.DesignationId = int.Parse(reader["designationId"].ToString());
+                aTeacherModel.DepartmentId = int.Parse(reader["departmentId"].ToString());
+                aTeacherModel.TeacherCreditToBeTaken = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
             }
             connection.Close();
             return aTeacherModel;
         }
 
 
-        public List<string> GetTeacherwithByDept(string department)
+        public List<TeacherModel> GetTeacherwithByDept(int dept)
         {
-            List<string> teachers = new List<string>();
+            List<TeacherModel> teachers = new List<TeacherModel>();
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT teacherName FROM teacher_tbl WHERE teacherDepartment='" + department + "'";
+            string query = "SELECT * FROM teacher_tbl WHERE teacherId='" + dept + "'";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                string getDepartment= reader["teacherName"].ToString();
-                teachers.Add(getDepartment);
+                TeacherModel aTeacherModel = new TeacherModel();
+                aTeacherModel.TeacherId = int.Parse(reader["teacherId"].ToString());
+                aTeacherModel.TeacherName = reader["teacherName"].ToString();
+                aTeacherModel.TeacherAddress = reader["teacherAddress"].ToString();
+                aTeacherModel.TeacherEmail = reader["teacherEmail"].ToString();
+                aTeacherModel.TeacherNumber = reader["teacherNumber"].ToString();
+                aTeacherModel.DesignationId = int.Parse(reader["designationId"].ToString());
+                aTeacherModel.Designation =aDesignationManager.GetDesignationById(aTeacherModel.DesignationId);
+                aTeacherModel.DepartmentId = int.Parse(reader["departmentId"].ToString());
+                aTeacherModel.Department =aDepartmentManager.GetDepartmentById(aTeacherModel.DepartmentId);
+                //string getDepartment = reader["teacherName"].ToString();
+                teachers.Add(aTeacherModel);
             }
             connection.Close();
             return teachers;
         }
 
-        public int GetCreditByTeacherName(string teacherName)
+        public int GetCreditByTeacherId(int teacherId)
         {
             //List<string> teachers = new List<string>();
             int credit = 0;
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT teacherCreditToBeTaken FROM teacher_tbl WHERE teacherName=@teacherName";
+            string query = "SELECT teacherCreditToBeTaken FROM teacher_tbl WHERE teacherId=@teacherId";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.Clear();
-            command.Parameters.AddWithValue("@teacherName", teacherName);
+            command.Parameters.AddWithValue("@teacherId", teacherId);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows) {
+            if (reader.HasRows)
+            {
                 while (reader.Read())
                 {
                     credit = Convert.ToInt32(reader["teacherCreditToBeTaken"].ToString());
@@ -154,38 +173,38 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             connection.Close();
             return credit;
         }
-        public int getAssignedCreditByTeacherName(string teacherName)
+        public int getAssignedCreditByTeacherName(int teacherId)
         {
-                SqlConnection aSqlConnection = new SqlConnection(connectionString);
-                string query = "SELECT courseCredit FROM courseAssignToTeacher_tbl WHERE teacher=@teacher";
-                SqlCommand aSqlCommand = new SqlCommand(query,aSqlConnection);
-                aSqlCommand.Parameters.Clear();
-                aSqlCommand.Parameters.AddWithValue("@teacher", teacherName);
-                aSqlConnection.Open();
-                SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
-                if (aSqlDataReader.HasRows)
+            SqlConnection aSqlConnection = new SqlConnection(connectionString);
+            string query = "SELECT courseCredit FROM courseAssignToTeacher_tbl WHERE teacherId=@teacherId";
+            SqlCommand aSqlCommand = new SqlCommand(query, aSqlConnection);
+            aSqlCommand.Parameters.Clear();
+            aSqlCommand.Parameters.AddWithValue("@teacherId", teacherId);
+            aSqlConnection.Open();
+            SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
+            if (aSqlDataReader.HasRows)
+            {
+                int assignedCredit = 0;
+                while (aSqlDataReader.Read())
                 {
-                    int assignedCredit = 0;
-                    while (aSqlDataReader.Read())
-                    {
-                        assignedCredit += Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
-                    }
-                    aSqlConnection.Close();
-                    return assignedCredit;
+                    assignedCredit += Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
                 }
-                else
-                {
-                    aSqlConnection.Close();
-                    return 0;
-                }
+                aSqlConnection.Close();
+                return assignedCredit;
+            }
+            else
+            {
+                aSqlConnection.Close();
+                return 0;
+            }
         }
-        //public bool getCreditAssignedToTeacher(string teacherName)
+        //public bool getCreditAssignedToTeacher(int teacherId)
         //{
         //    SqlConnection aSqlConnection = new SqlConnection(connectionString);
         //    string query = "SELECT courseCredit FROM courseAssignToTeacher_tbl WHERE teacher=@teacher";
         //    SqlCommand aSqlCommand = new SqlCommand(query, aSqlConnection);
         //    aSqlCommand.Parameters.Clear();
-        //    aSqlCommand.Parameters.AddWithValue("@teacher",teacherName);
+        //    aSqlCommand.Parameters.AddWithValue("@teacher", teacherName);
         //    aSqlConnection.Open();
         //    SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
         //    if (aSqlDataReader.HasRows)
@@ -222,17 +241,17 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
         public int UpdateTeacher(TeacherModel aTeacherModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "UPDATE teacher_tbl SET teacherName=@teacherName,teacherAddress=@teacherAddress,teacherEmail=@teacherEmail,teacherNumber=@teacherNumber,teacherDesignation=@teacherDesignation,teacherDepartment=@teacherDepartment,teacherCreditToBeTaken=@teacherCreditToBeTaken WHERE teacherId=@teacherId";
+            string query = "UPDATE teacher_tbl SET teacherName=@teacherName,teacherAddress=@teacherAddress,teacherEmail=@teacherEmail,teacherNumber=@teacherNumber,designationId=@designationId,departmentId=@departmentId,teacherCreditToBeTaken=@teacherCreditToBeTaken WHERE teacherId=@teacherId";
             SqlCommand commmand = new SqlCommand(query, connection);
             commmand.Parameters.Clear();
-            commmand.Parameters.AddWithValue("@teacherName",aTeacherModel.teacherName);
-            commmand.Parameters.AddWithValue("@teacherAddress",aTeacherModel.teacherAddress);
-            commmand.Parameters.AddWithValue("@teacherEmail", aTeacherModel.teacherEmail);
-            commmand.Parameters.AddWithValue("@teacherNumber", aTeacherModel.teacherNumber);
-            commmand.Parameters.AddWithValue("@teacherDesignation", aTeacherModel.teacherDesignation);
-            commmand.Parameters.AddWithValue("@teacherDepartment", aTeacherModel.teacherDepartment);
-            commmand.Parameters.AddWithValue("@teacherCreditToBeTaken", aTeacherModel.teacherCreditToBeTaken);
-            commmand.Parameters.AddWithValue("@teacherId",aTeacherModel.teacherId);
+            commmand.Parameters.AddWithValue("@teacherName",aTeacherModel.TeacherName);
+            commmand.Parameters.AddWithValue("@teacherAddress",aTeacherModel.TeacherAddress);
+            commmand.Parameters.AddWithValue("@teacherEmail", aTeacherModel.TeacherEmail);
+            commmand.Parameters.AddWithValue("@teacherNumber", aTeacherModel.TeacherNumber);
+            commmand.Parameters.AddWithValue("@designationId", aTeacherModel.DesignationId);
+            commmand.Parameters.AddWithValue("@departmentId", aTeacherModel.DepartmentId);
+            commmand.Parameters.AddWithValue("@teacherCreditToBeTaken", aTeacherModel.TeacherCreditToBeTaken);
+            //commmand.Parameters.AddWithValue("@teacherId",aTeacherModel.TeacherId);
             int rowAffected = 0;
             try
             {
@@ -247,20 +266,5 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             return rowAffected;
         }
 
-        public List<string> GetAllDesignations()
-        {
-            List<string> designationsList = new List<string>();
-            SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT * FROM designation_tbl";
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                designationsList.Add(reader["designation"].ToString());
-            }
-            connection.Close();
-            return designationsList;
-        }
     }
 }

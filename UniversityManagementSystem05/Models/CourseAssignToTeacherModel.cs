@@ -9,8 +9,10 @@ namespace UniversityManagementSystem05.Models
     {
         public int courseAssignToTeacherId { get; set; }
 
-        public string department { get; set; }
-        public string teacher { get; set; }
+        public int departmentId { get; set; }
+        public DepartmentModel department { get; set; }
+        public int teacherId { get; set; }
+        public TeacherModel teacher { get; set; }
         public int teacherCreditToBeTaken { get; set; }
         public int teacherRemainingCredit { get; set; }
         public string courseCode { get; set; }

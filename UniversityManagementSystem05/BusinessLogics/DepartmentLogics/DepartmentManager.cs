@@ -12,11 +12,11 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
         public string SaveDepartment(DepartmentModel aDepartmetModel)
         {
             string message = "";
-            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.departmentCode))
+            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.DepartmentCode))
             {
                 message = "Department Code Exists";
             }
-            else if (aDepartmentGateway.IsDepartmentNameExist(aDepartmetModel.departmentName))
+            else if (aDepartmentGateway.IsDepartmentNameExist(aDepartmetModel.DepartmentName))
             {
                 message = "Department Name Exists";
             }

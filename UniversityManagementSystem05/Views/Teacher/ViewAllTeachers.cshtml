@@ -66,14 +66,14 @@
                                         @foreach (TeacherModel aTeacherModel in list)
                                         {
                                         <tr>
-                                            <td align="center"> @aTeacherModel.teacherName</td>
-                                            <td align="center"> @aTeacherModel.teacherAddress </td>
-                                            <td align="center"> @aTeacherModel.teacherEmail </td>
-                                            <td align="center"> @aTeacherModel.teacherNumber </td>
-                                            <td align="center"> @aTeacherModel.teacherDesignation </td>
-                                            <td align="center"> @aTeacherModel.teacherDepartment </td>
-                                            <td align="center"> @aTeacherModel.teacherCreditToBeTaken </td>
-                                            <td align="center"> <a href="@Url.Action("EditTeacherFromList", "Teacher", new { teacherId=aTeacherModel.teacherId})">Edit</a> | <a href="@Url.Action("DeleteTeacherFromList", "Teacher", new { teacherId=aTeacherModel.teacherId})">Delete</a> </td>
+                                            <td align="center"> @aTeacherModel.TeacherName</td>
+                                            <td align="center"> @aTeacherModel.TeacherAddress </td>
+                                            <td align="center"> @aTeacherModel.TeacherEmail </td>
+                                            <td align="center"> @aTeacherModel.TeacherNumber </td>
+                                            <td align="center"> @aTeacherModel.TeacherDesignation </td>
+                                            <td align="center"> @aTeacherModel.TeacherDepartment </td>
+                                            <td align="center"> @aTeacherModel.TeacherCreditToBeTaken </td>
+                                            <td align="center"> <a href="@Url.Action("EditTeacherFromList", "Teacher", new { teacherId=aTeacherModel.TeacherId})">Edit</a> | <a href="@Url.Action("DeleteTeacherFromList", "Teacher", new { teacherId=aTeacherModel.TeacherId})">Delete</a> </td>
                                         </tr>
                                         }
 

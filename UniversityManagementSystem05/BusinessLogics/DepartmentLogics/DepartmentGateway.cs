@@ -16,8 +16,8 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             string query = "INSERT INTO department_tbl(departmentCode,departmentName) VALUES (@deptCode,@deptName)";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@deptCode", aDepartmentModel.departmentCode);
-            cmd.Parameters.AddWithValue("@deptName", aDepartmentModel.departmentName);
+            cmd.Parameters.AddWithValue("@deptCode", aDepartmentModel.DepartmentCode);
+            cmd.Parameters.AddWithValue("@deptName", aDepartmentModel.DepartmentName);
 
             int rowAffected = 0;
             try
@@ -48,9 +48,9 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
                 string DeptName = reader["departmentName"].ToString();
                 int DeptId = Convert.ToInt32(reader["departmentId"].ToString());
                 DepartmentModel aDepartment = new DepartmentModel();
-                aDepartment.departmentCode = DeptCode;
-                aDepartment.departmentName = DeptName;
-                aDepartment.departmentId = DeptId;
+                aDepartment.DepartmentCode = DeptCode;
+                aDepartment.DepartmentName = DeptName;
+                aDepartment.DepartmentId = DeptId;
                 departments.Add(aDepartment);
             }
             connection.Close();
@@ -150,9 +150,9 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
                 string DeptName = reader["departmentName"].ToString();
                 int DeptmntId = Convert.ToInt32(reader["departmentId"].ToString());
                 
-                aDepartmentModel.departmentCode = DeptCode;
-                aDepartmentModel.departmentName = DeptName;
-                aDepartmentModel.departmentId = DeptId;
+                aDepartmentModel.DepartmentCode = DeptCode;
+                aDepartmentModel.DepartmentName = DeptName;
+                aDepartmentModel.DepartmentId = DeptId;
 
             }            
             
@@ -166,9 +166,9 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             string query = "UPDATE department_tbl SET departmentCode=@deptCode,departmentName=@deptName WHERE departmentId=@deptId";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@deptCode", aDepartmentModel.departmentCode);
-            cmd.Parameters.AddWithValue("@deptName", aDepartmentModel.departmentName);
-            cmd.Parameters.AddWithValue("@deptId", aDepartmentModel.departmentId);
+            cmd.Parameters.AddWithValue("@deptCode", aDepartmentModel.DepartmentCode);
+            cmd.Parameters.AddWithValue("@deptName", aDepartmentModel.DepartmentName);
+            cmd.Parameters.AddWithValue("@deptId", aDepartmentModel.DepartmentId);
 
             int rowAffected = 0;
             try

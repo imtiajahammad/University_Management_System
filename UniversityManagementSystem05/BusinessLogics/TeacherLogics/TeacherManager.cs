@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UniversityManagementSystem05.BusinessLogics.DepartmentLogics;
+using UniversityManagementSystem05.BusinessLogics.DesignationLogics;
 using UniversityManagementSystem05.Models;
 
 namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
@@ -11,10 +12,11 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
     {
         TeacherGateWay aTeacherGateWay = new TeacherGateWay();
         DepartmentGateway aDepartmentGateway = new DepartmentGateway();
+        DesignationGateway aDesignationGateway = new DesignationGateway();
         public string SaveTeacher(TeacherModel aTeacherModel)
         {
             string message = "";
-            if (aTeacherGateWay.IsTeacherEmailExist(aTeacherModel.teacherEmail))
+            if (aTeacherGateWay.IsTeacherEmailExist(aTeacherModel.TeacherEmail))
             {
                 message = "Teacher Email Exists";
             }
@@ -40,31 +42,31 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             return listOfDepartmentCode;
         }
 
-        public List<string> GetTeachersByDepartment(string dept)
+        public List<TeacherModel> GetTeachersByDepartmentId(int dept)
         {
             TeacherGateWay aTeacherGateWay = new TeacherGateWay();
-            List<string> teachers = new List<string>();
+            List<TeacherModel> teachers = new List<TeacherModel>();
             teachers = aTeacherGateWay.GetTeacherwithByDept(dept);
             return teachers;
         }
 
-        public int GetCreditByTeacherName(string teacherName)
+        public int GetCreditByTeacherId(int teacherId)
         {
             TeacherGateWay aTeacherGateWay = new TeacherGateWay();
-            return aTeacherGateWay.GetCreditByTeacherName(teacherName);
+            return aTeacherGateWay.GetCreditByTeacherId(teacherId);
         }
 
-        public int getAssignedCreditByTeacherName(string teacherName)
+        public int getAssignedCreditByTeacherId(int teacherId)
         {
             TeacherGateWay aTeacherGateWay = new TeacherGateWay();
-            return aTeacherGateWay.getAssignedCreditByTeacherName(teacherName);
+            return aTeacherGateWay.getAssignedCreditByTeacherName(teacherId);
         }
 
 
-        public List<string> GetAllDesignations()
+        public List<DesignationModel> GetAllDesignations()
         {
-            List<string> designations = new List<string>();
-            designations = aTeacherGateWay.GetAllDesignations();
+            List<DesignationModel> designations = new List<DesignationModel>();
+            designations = aDesignationGateway.GetAllDesignations();
             return designations;
         }
 

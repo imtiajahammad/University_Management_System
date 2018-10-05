@@ -118,7 +118,7 @@ namespace UniversityManagementSystem05.Controllers
             }
             else
             {
-                return RedirectToAction("EditDepartmentFromList", new { departmentId = aDepartmentModel.departmentId, message = rowAffected });
+                return RedirectToAction("EditDepartmentFromList", new { departmentId = aDepartmentModel.DepartmentId, message = rowAffected });
             }
         }
 

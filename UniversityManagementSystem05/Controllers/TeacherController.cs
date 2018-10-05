@@ -19,29 +19,38 @@ namespace UniversityManagementSystem05.Controllers
             DepartmentManager aDepartmentManager = new DepartmentManager();
             List<DepartmentModel> departmentList = aDepartmentManager.ViewAllDepartments();
             ViewBag.departments = departmentList;
-
             //string[] designationArray = { "Professor","Assistance Professor","Senior Teacher","Junior Teacher"};
-            List<string> designations = aTeacherManager.GetAllDesignations();
-            
-
+            List<DesignationModel> designations = aTeacherManager.GetAllDesignations();
             ViewBag.designations = designations;
             return View();
         }
         [HttpPost]
         public ActionResult SaveTeacher(TeacherModel aTeacherModel)
         {
-            string message = "";
+            
 
-            message = aTeacherManager.SaveTeacher(aTeacherModel);
+            //if (aTeacherModel.DesignationId == 0)
+            //{
+            //    ViewBag.Message = "Teacher Save Failed !! \n Designation is not selected";
+            //}
+            //else if (aTeacherModel.DepartmentId==0)
+            //{
+            //    ViewBag.Message = "Teacher Save Failed !! \n Designation is not selected";
+            //}
+            //else
+            {
+                string message = "";
+                message = aTeacherManager.SaveTeacher(aTeacherModel);
 
-            ViewBag.Message = message;
+                ViewBag.Message = message;
+            }
 
 
             DepartmentManager aDepartmentManager = new DepartmentManager();
             List<DepartmentModel> departmentList = aDepartmentManager.ViewAllDepartments();
             ViewBag.departments = departmentList;
 
-            List<string> designations = aTeacherManager.GetAllDesignations();
+            List<DesignationModel> designations = aTeacherManager.GetAllDesignations();
             ViewBag.designations = designations;
 
             return View();
@@ -69,6 +78,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult EditTeacherFromList(int teacherId, int? message)
         {
+            //use modelstate.IsValid
             if (message != null)
             {
                 if (message == 0)
@@ -101,7 +111,7 @@ namespace UniversityManagementSystem05.Controllers
             }
             else
             {
-                return RedirectToAction("EditTeacherFromList", new { teacherId = aTeacherModel.teacherId, message = rowAffected });
+                return RedirectToAction("EditTeacherFromList", new { teacherId = aTeacherModel.TeacherId, message = rowAffected });
             }
         }
         public ActionResult DeleteTeacherFromList(int teacherId)

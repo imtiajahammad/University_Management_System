@@ -8,8 +8,8 @@ namespace UniversityManagementSystem05.Models
 {
     public class DepartmentModel
     {
-        public int departmentId { get; set; }
-        public string departmentCode { get; set; }
-        public string departmentName { get; set; }
+        public int DepartmentId { get; set; }
+        public string DepartmentCode { get; set; }
+        public string DepartmentName { get; set; }
     }
 }
