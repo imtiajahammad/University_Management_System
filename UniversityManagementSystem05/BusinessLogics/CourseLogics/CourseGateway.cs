@@ -143,7 +143,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
         public CourseModel GetCourseForEdit(int courseId)
         {
-
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM course_tbl WHERE courseId='" + courseId + "'";
             SqlCommand command = new SqlCommand(query, connection);
@@ -173,6 +172,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
         public int DeleteCourse(int courseId)
         {
+
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "DELETE FROM course_tbl WHERE courseId=@courseId";
             SqlCommand cmd = new SqlCommand(query, connection);
@@ -196,7 +196,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         public int UpdateCourse(CourseModel aCourseModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "UPDATE course_tbl SET courseCode=@courseCode,courseName=@courseName,courseCredit=@courseCredit,courseDescription=@courseDescription,courseDepartment=@courseDepartment,courseSemester=@courseSemester WHERE courseId=@courseId";
+            string query = "UPDATE course_tbl SET courseCode=@courseCode,courseName=@courseName,courseCredit=@courseCredit,courseDescription=@courseDescription,departmentId=@departmentId,semesterId=@semesterId WHERE courseId=@courseId";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@courseCode", aCourseModel.courseCode);
@@ -210,8 +210,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             {
                 cmd.Parameters.AddWithValue("@courseDescription", aCourseModel.courseDescription);
             }
-            cmd.Parameters.AddWithValue("@courseDepartment", aCourseModel.departmentId);
-            cmd.Parameters.AddWithValue("@courseSemester", aCourseModel.semesterId);
+            cmd.Parameters.AddWithValue("@departmentId", aCourseModel.departmentId);
+            cmd.Parameters.AddWithValue("@semesterId", aCourseModel.semesterId);
             cmd.Parameters.AddWithValue("@courseId", aCourseModel.courseId);
             int rowAffected = 0;
             try

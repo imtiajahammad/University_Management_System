@@ -23,10 +23,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return courses;
         }
 
-
-
-
-        public int UpdateDepartment(CourseModel aCourseModel)
+        public int UpdateCourse(CourseModel aCourseModel)
         {
             {
                 int rowAffected = aCourseGateway.UpdateCourse(aCourseModel);
@@ -36,10 +33,10 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
         }
 
-        public List<DepartmentModel> GetDepartmentCodeList()
+        public List<DepartmentModel> GetDepartmentList()
         {
             List<DepartmentModel> departmentList = new List<DepartmentModel>();
-            departmentList = aDepartmentManager.ViewAllDepartments();
+            departmentList = aDepartmentManager.GetAllDepartments();
             return departmentList;
         }
         public List<string> GetCourseNameCourseCode(string courseCode)

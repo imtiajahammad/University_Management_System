@@ -35,7 +35,7 @@ namespace UniversityManagementSystem05.Controllers
         public ActionResult ViewAllDepartments(int? messageFromEdit)
         {
             List<DepartmentModel> departments = new List<DepartmentModel>();
-            departments = aDepartmentManager.ViewAllDepartments();
+            departments = aDepartmentManager.GetAllDepartments();
             if(departments.Count == 0 )
             {
                 //int d = departments.Count;
@@ -114,7 +114,7 @@ namespace UniversityManagementSystem05.Controllers
             //ViewBag.Message2 = message;
             if (rowAffected == 1)
             {
-                return RedirectToAction("ViewAllDepartments" ,new { message = rowAffected });
+                return RedirectToAction("GetAllDepartments" ,new { message = rowAffected });
             }
             else
             {
@@ -129,7 +129,7 @@ namespace UniversityManagementSystem05.Controllers
             int rowsEffected = aDepartmentManager.DeleteDepartment(departmentId);
             if (rowsEffected > 0)
             {
-                return RedirectToAction("ViewAllDepartments");
+                return RedirectToAction("GetAllDepartments");
             }
             else
             {

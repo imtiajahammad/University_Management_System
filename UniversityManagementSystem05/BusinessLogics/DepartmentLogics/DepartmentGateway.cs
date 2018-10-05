@@ -34,7 +34,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
         }
 
         
-        public List<DepartmentModel> GetAllDepartment()
+        public List<DepartmentModel> GetAllDepartments()
         {
             List<DepartmentModel> departments = new List<DepartmentModel>();
             SqlConnection connection = new SqlConnection(connectionString);

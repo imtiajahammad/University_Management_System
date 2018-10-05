@@ -18,7 +18,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         public List<DepartmentModel> GetAllDepartments()
         {
             
-            List<DepartmentModel> list = aDepartmentManager.ViewAllDepartments();
+            List<DepartmentModel> list = aDepartmentManager.GetAllDepartments();
             return list;
         }
         public List<TeacherModel> GetAllTeachers()

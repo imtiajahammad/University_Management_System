@@ -72,7 +72,7 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2 ">Course Department</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="departmentId">
+                                        <select class="form-control" required name="departmentId" id="departmentDropdownId" >
                                             <option></option>
                                             @foreach (var a in deptList)
                                             {
@@ -84,7 +84,7 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Course Semester</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="semesterId">
+                                        <select class="form-control" required name="semesterId" id="semesterDropdownId" >
                                             <option></option>
                                             @foreach (var aa in semesterList)
                                             {
@@ -130,8 +130,6 @@
 </body>
 
 </html>
-
-
 
 
 

@@ -1,7 +1,10 @@
-﻿
+﻿@using UniversityManagementSystem05.Models;
 @{
     ViewBag.Title = "EditCourseFromList";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var depts = ViewBag.Depts;
+    var sems = ViewBag.Sems;
 }
 
 <html lang="en">
@@ -32,12 +35,18 @@
 <body>
     @*<h2>EditDepartmentFromList</h2>*@
 
+    <br />
+    <br />
+
+
     <div align="center">
         @if (ViewBag.Message != null)
         {
             <span id="success-alert" class="i">@ViewBag.Message</span>
         }
     </div>
+
+    <br />
 
     <div class="col-lg-offset-1 col-md-10">
         <div class="panel panel-default">
@@ -71,19 +80,59 @@
 
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Course Description:</label>
-                                    <div class="col-md-10"><input class="form-control" type="text" name="courseDescription" value="@Model.courseDescription"  /> </div>
+                                    <div class="col-md-10"><input class="form-control" type="text" name="courseDescription" value="@Model.courseDescription" /> </div>
                                 </div>
+
+                                @*<div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">Course department:</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="Department.departmentName" value="@Model.Department.departmentName" required />
+                                        </div>
+                                    </div>*@
 
                                 <div class="form-group col-md-12">
-                                    <label class="control-label col-md-2">Course department:</label>
-                                    <div class="col-md-10"><input class="form-control" type="text" name="Department.departmentName" value="@Model.Department.departmentName" required /> </div>
+                                    <label class="control-label col-md-2 ">Course department:</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" required name="departmentId" id="departmentDropdownId">
+                                            <option value="0" ></option>
+                                            @foreach (var a in depts)
+                                            {
+                                                if (a.departmentId == Model.departmentId)
+                                                {
+                                                    <option selected value="@a.departmentId">@a.departmentName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@a.departmentId">@a.departmentName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
 
+                                @*<div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">Course Semester:</label>
+                                        <div class="col-md-10"><input class="form-control" type="text" name="Semester.semesterName" value="@Model.Semester.semesterName" required /> </div>
+                                    </div>*@
                                 <div class="form-group col-md-12">
-                                    <label class="control-label col-md-2">Course Semester:</label>
-                                    <div class="col-md-10"><input class="form-control" type="text" name="Semester.semesterName" value="@Model.Semester.semesterName" required /> </div>
+                                    <label class="control-label col-md-2 ">Course Semester:</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" required name="semesterId">
+                                            <option value="0" ></option>
+                                            @foreach (var a in sems)
+                                            {
+                                                if(a.semesterId == @Model.semesterId)
+                                                {
+                                                    <option selected value="@a.semesterId">@a.semesterName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@a.semesterId">@a.semesterName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
-
 
 
                                 <div class="form-group col-md-12">
@@ -110,3 +159,39 @@
 </body>
 
 </html>
+
+
+@*<script type='text/javascript'>
+    $(function () {
+        $("#departmentDropdownId").click(function () {
+            //alert("department dropdown clicked");
+            $("#departmentDropdownId").empty();
+            //alert("department dropdown emptied");
+            //var department = $("#departmentDropdownId").val();
+            //var jasonData = { dept: department };
+            $.ajax({//to get the list of teachers from selected department
+                    type: "POST",
+                    url: '@Url.Action("GetDepartments", "Course")',
+                    contentType: "application/json; charset=utf-8",
+                    //data: JSON.stringify(jasonData),
+                    dataType: "json",
+                
+                success: function (data) {
+                    $("#departmentDropdownId").append('<option '  +  '>' + '</option>');
+                    $.each(data, function (key, value) {
+                        $("#departmentDropdownId").append('<option value=' + value.departmentName + '>' + value.departmentName + '</option>');
+                    });
+                },
+                failure: function (response) { alert(response.d); },
+                error: function (response) { alert(response.d); }
+            });//return false;
+            //debugger;
+
+        });
+
+    });
+
+
+
+</script>*@
+
