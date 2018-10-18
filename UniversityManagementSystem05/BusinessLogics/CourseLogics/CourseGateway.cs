@@ -141,7 +141,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
 
 
-        public CourseModel GetCourseForEdit(int courseId)
+        public CourseModel GetSingleCourseModel(int courseId)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM course_tbl WHERE courseId='" + courseId + "'";
@@ -165,6 +165,17 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
             connection.Close();
             return aCourseModel;
+        }
+
+        public int GetCourseCreditByCourseId(int courseId)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            string query = "SELECT courseCredit FROM course_tbl WHERE courseId=@courseId";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            con.Close();
+            return Convert.ToInt32(reader["courseCredit"].ToString());
         }
 
 
@@ -285,6 +296,37 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             {
                 return null;
             }
+        }
+
+        public List<CourseModel> GetCourseListByDeptId(int deptId)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            string query = "SELECT * FROM course_tbl WHERE departmentId=@departmentId";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@departmentId", deptId);
+            con.Open();
+            SqlDataReader aSqlDataReader = cmd.ExecuteReader();
+            List<CourseModel> courses = new List<CourseModel>();
+            if (aSqlDataReader.HasRows)
+            {
+                while (aSqlDataReader.Read())
+                {
+                    CourseModel aCourseModel = new CourseModel();
+                    aCourseModel.courseId = Convert.ToInt32(aSqlDataReader["courseId"].ToString());
+                    aCourseModel.courseCode = aSqlDataReader["courseCode"].ToString();
+                    aCourseModel.courseName = aSqlDataReader["courseName"].ToString();
+                    aCourseModel.courseCredit = Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
+                    aCourseModel.courseDescription = aSqlDataReader["courseDescription"].ToString();
+                    aCourseModel.departmentId = int.Parse(aSqlDataReader["departmentId"].ToString());
+                    aCourseModel.semesterId = int.Parse(aSqlDataReader["semesterId"].ToString());
+                    aCourseModel.Department = aDepartmentManager.GetDepartmentById(aCourseModel.departmentId);
+                    aCourseModel.Semester = aSemesterManager.GetSemesterById(aCourseModel.semesterId);
+                    courses.Add(aCourseModel);
+                }
+            }
+            con.Close();
+            return courses;
         }
     }
 }
