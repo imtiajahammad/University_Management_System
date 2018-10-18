@@ -15,8 +15,6 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
         DesignationManager aDesignationManager = new DesignationManager();
         DepartmentManager aDepartmentManager = new DepartmentManager();
 
-
-
         public bool IsTeacherEmailExist(string teacherEmail)
         {
             bool isTeacherEmailExist = false;
@@ -127,11 +125,11 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
         }
 
 
-        public List<TeacherModel> GetTeacherwithByDept(int dept)
+        public List<TeacherModel> GetTeachersByDept(int deptId)
         {
             List<TeacherModel> teachers = new List<TeacherModel>();
             SqlConnection connection = new SqlConnection(connectionString);
-            string query = "SELECT * FROM teacher_tbl WHERE teacherId='" + dept + "'";
+            string query = "SELECT * FROM teacher_tbl WHERE departmentId='" + deptId + "'";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -147,7 +145,6 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
                 aTeacherModel.Designation =aDesignationManager.GetDesignationById(aTeacherModel.DesignationId);
                 aTeacherModel.DepartmentId = int.Parse(reader["departmentId"].ToString());
                 aTeacherModel.Department =aDepartmentManager.GetDepartmentById(aTeacherModel.DepartmentId);
-                //string getDepartment = reader["teacherName"].ToString();
                 teachers.Add(aTeacherModel);
             }
             connection.Close();
@@ -175,31 +172,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             connection.Close();
             return credit;
         }
-        public int getAssignedCreditByTeacherName(int teacherId)
-        {
-            SqlConnection aSqlConnection = new SqlConnection(connectionString);
-            string query = "SELECT courseCredit FROM courseAssignToTeacher_tbl WHERE teacherId=@teacherId";
-            SqlCommand aSqlCommand = new SqlCommand(query, aSqlConnection);
-            aSqlCommand.Parameters.Clear();
-            aSqlCommand.Parameters.AddWithValue("@teacherId", teacherId);
-            aSqlConnection.Open();
-            SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
-            if (aSqlDataReader.HasRows)
-            {
-                int assignedCredit = 0;
-                while (aSqlDataReader.Read())
-                {
-                    assignedCredit += Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
-                }
-                aSqlConnection.Close();
-                return assignedCredit;
-            }
-            else
-            {
-                aSqlConnection.Close();
-                return 0;
-            }
-        }
+
         //public bool getCreditAssignedToTeacher(int teacherId)
         //{
         //    SqlConnection aSqlConnection = new SqlConnection(connectionString);

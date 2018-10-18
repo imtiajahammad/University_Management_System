@@ -42,25 +42,22 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             return listOfDepartmentCode;
         }
 
-        public List<TeacherModel> GetTeachersByDepartmentId(int dept)
+        public List<TeacherModel> GetTeachersByDepartmentId(int deptId)
         {
-            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
+//          TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             List<TeacherModel> teachers = new List<TeacherModel>();
-            teachers = aTeacherGateWay.GetTeacherwithByDept(dept);
+            teachers = aTeacherGateWay.GetTeachersByDept(deptId);
             return teachers;
         }
 
         public int GetCreditByTeacherId(int teacherId)
         {
-            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             return aTeacherGateWay.GetCreditByTeacherId(teacherId);
         }
 
-        public int getAssignedCreditByTeacherId(int teacherId)
-        {
-            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
-            return aTeacherGateWay.getAssignedCreditByTeacherName(teacherId);
-        }
+
+        
+
 
 
         public List<DesignationModel> GetAllDesignations()
