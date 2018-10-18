@@ -34,47 +34,54 @@ namespace UniversityManagementSystem05.Controllers
         [HttpPost]
         public JsonResult GetTeacherByDeptId(int deptId)
         {
-            List<string> teachers = new List<string>();
-            //teachers = aCourseAssignManager.GetTeachersByDepartment(dept);
+            List<TeacherModel> teachers = new List<TeacherModel>();
+            teachers = aCourseAssignManager.GetTeachersByDeptId(deptId);
             //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
             //return Json(teachers, JsonRequestBehavior.AllowGet);
             return Json(teachers, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetCourseCodeByDept(string dept)
+        public JsonResult GetCourseListByDeptId(int deptId)
         {
-            DepartmentManager aDepartmentManager = new DepartmentManager();
-            string deptCode = aDepartmentManager.GetDepartmentCodeByDeptName(dept);
-
-            List<string> course= new List<string>();
-            CourseManager aCourseManager = new CourseManager();
-            course = aCourseManager.GetCourseNameCreditByDept(dept);
-            //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
-            //return Json(teachers, JsonRequestBehavior.AllowGet);
-            return Json(course, JsonRequestBehavior.AllowGet);
+            List<CourseModel> courseList= new List<CourseModel>();
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
+            courseList = aCourseAssignManager.GetCourseListByDeptId(deptId);
+            return Json(courseList, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //public JsonResult GetCreditByTeacherName(string teacherName)
-        //{
-        //    int creditToBeTaken = aTeacherManager.GetCreditByTeacherName(teacherName);
-        //    return Json(creditToBeTaken,JsonRequestBehavior.AllowGet);
-        //}
-
-        //public JsonResult getAssignedCreditByTeacherName(string teacherName)
-        //{
-        //    int assignCredit= aTeacherManager.getAssignedCreditByTeacherName(teacherName);
-        //    return Json(assignCredit, JsonRequestBehavior.AllowGet);
-        //}
-
-        //[HttpPost]
-        //public JsonResult GetRemainingCreditByTeacherName(string teacherName)
-        //{
-        //    return Json(null);
-        //}
         [HttpPost]
-        public JsonResult GetNameCreditByCourseCode(string courseCode)
+        public JsonResult GetCreditByTeacherId(int teacherId)
         {
-            return Json(null);
+            int creditToBeTaken = aCourseAssignManager.GetCreditByTeacherId(teacherId);
+            return Json(creditToBeTaken, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRemainingCreditByTeacherId(int teacherId)
+        {
+            int creditToBeTaken= aCourseAssignManager.GetCreditByTeacherId(teacherId);
+            int remainingCredit;
+            int totalAssignedCredit = aCourseAssignManager.GetAssignedCreditByTeacherId(teacherId);
+            if (totalAssignedCredit == 0)
+            {
+                remainingCredit = creditToBeTaken;
+            }
+            else if (totalAssignedCredit < creditToBeTaken)
+            {
+                remainingCredit = creditToBeTaken - totalAssignedCredit;
+            }
+            else
+            {
+                remainingCredit = 0;
+            }
+            return Json(remainingCredit, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult GetCourseModelByCourseId(int courseId)
+        {
+            CourseModel aCourseModel = new CourseModel();
+            aCourseModel = aCourseAssignManager.GetCourseModelByCourseId(courseId);
+            return Json(aCourseModel,JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
