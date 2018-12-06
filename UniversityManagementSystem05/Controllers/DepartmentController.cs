@@ -114,7 +114,7 @@ namespace UniversityManagementSystem05.Controllers
             //ViewBag.Message2 = message;
             if (rowAffected == 1)
             {
-                return RedirectToAction("GetAllDepartments" ,new { message = rowAffected });
+                return RedirectToAction("ViewAllDepartments", new { message = rowAffected });
             }
             else
             {
@@ -129,11 +129,12 @@ namespace UniversityManagementSystem05.Controllers
             int rowsEffected = aDepartmentManager.DeleteDepartment(departmentId);
             if (rowsEffected > 0)
             {
-                return RedirectToAction("GetAllDepartments");
+                return RedirectToAction("ViewAllDepartments");
             }
             else
             {
-                return null;
+                string msg = "Delete could not occur";
+                return RedirectToAction("ViewAllDepartments", new { message=msg});
             }
 
             
