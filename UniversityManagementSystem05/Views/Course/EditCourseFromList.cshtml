@@ -97,13 +97,13 @@
                                             <option value="0" ></option>
                                             @foreach (var a in depts)
                                             {
-                                                if (a.departmentId == Model.departmentId)
+                                                if (a.DepartmentId == Model.departmentId)
                                                 {
-                                                    <option selected value="@a.departmentId">@a.departmentName</option>
+                                                    <option selected value="@a.DepartmentId">@a.DepartmentName</option>
                                                 }
                                                 else
                                                 {
-                                                    <option value="@a.departmentId">@a.departmentName</option>
+                                                    <option value="@a.DepartmentId">@a.DepartmentName</option>
                                                 }
                                             }
                                         </select>
