@@ -16,6 +16,15 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         CourseManager aCourseManager = new CourseManager();
         CourseAssignGateway aCourseAssignGateway = new CourseAssignGateway();
 
+
+
+        /// <summary>
+        /// calling GetAllDepartments()  function from CourseAssignManager;
+        /// that GetAllDepartments()  Function calls GetAllDepartments() function From DepartmentManager;
+        /// that GetAllDepartments()  Function calls GetAllDepartments() function From DepartmentGateway;
+        /// that GetAllDepartments()  gets all the departments with id,names from database;
+        /// </summary>
+        /// <returns>all the departments with id,names from database.</returns>
         public List<DepartmentModel> GetAllDepartments()
         {
             
@@ -75,6 +84,29 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
                 return 0;
             }
 
+        }
+
+        public int DeleteAssignedCourseByCourseAssignId(int AssignedCourseId)
+        {
+            //          string message = "";
+
+            int rowAffected = aCourseAssignGateway.DeleteAssignedCourseByAssignedCourseId(AssignedCourseId);
+
+
+            //return message;
+            return rowAffected;
+        }
+        public int UpdateAssignedCourseToTeacherModel(CourseAssignToTeacherModel aCourseAssignToTeacherModel)
+        {
+            {
+                int rowAffected = aCourseAssignGateway.UpdateCourseAssign(aCourseAssignToTeacherModel);
+                return rowAffected;
+            }
+        }
+        public CourseAssignToTeacherModel GetAssignedCourseToTeacherModelById(int assignedCourseId)
+        {
+            CourseAssignToTeacherModel aCourseAssignToTeacherModel = aCourseAssignGateway.GetSingleCourseAssignToTeacherModel(assignedCourseId);
+            return aCourseAssignToTeacherModel;
         }
     }
 }
