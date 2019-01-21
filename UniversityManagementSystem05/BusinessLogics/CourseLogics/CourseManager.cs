@@ -76,7 +76,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return message;
         }
 
-        public CourseModel GetCourseForEdit(int courseId)
+        public CourseModel GetCourseByCourseId(int courseId)
         {
             CourseModel aCourseModel = new CourseModel();
             aCourseModel = aCourseGateway.GetSingleCourseModel(courseId);
