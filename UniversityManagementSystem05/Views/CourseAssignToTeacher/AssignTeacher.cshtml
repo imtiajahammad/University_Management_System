@@ -3,7 +3,7 @@
     ViewBag.Title = "AssignTeacher";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var departments = ViewBag.Departments;
-    var teachers= ViewBag.Teachers;
+    var teachers = ViewBag.Teachers;
     var courseCodes = ViewBag.CourseCodeList;
 
 }
@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width", initial-scale="1" />
+    <meta name="viewport" content="width=device-width" , initial-scale="1" />
 
 
     <link href="~/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -35,19 +35,19 @@
             <div class="panel-heading  ">
                 <h2 class="panel-title">Assign Teacher To Course</h2>
             </div>
-            <div class="panel-body  ">
+            <div class="panel-body">
                 <div>
-                    <div class="container   ">
+                    <div class="container">
                         <div class="row col-md-12">
                             <form method="post" action="AssignTeacher" class="form-horizontal col-md-12">
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Department:</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="department" id="departmentDropdownId">
-                                            <option value=0>Choose a department</option>
+                                        <select class="form-control" required name="DepartmentId" id="departmentDropdownId">
+                                            <option>Choose a department</option>
                                             @foreach (var a in departments)
                                             {
-                                                <option value="@a.departmentName">@a.departmentName</option>
+                                                <option value="@a.DepartmentId">@a.DepartmentName</option>
                                             }
                                         </select>
                                     </div>
@@ -55,50 +55,50 @@
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Teacher:</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="teacher" id="teacherDropdownId">
-                                            <option value=0>Select a teacher</option>
+                                        <select class="form-control" required name="TeacherId" id="teacherDropdownId">
+                                            @*<option>Select a teacher</option>*@
                                             @*@foreach (var a in teachers)
-                                            {
-                                                <option value="@a.teacherName">@a.teacherName</option>
-                                            }*@
+                                                {
+                                                    <option value="@a.teacherName">@a.teacherName</option>
+                                                }*@
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Credit to be taken:</label>
-                                    <div class="col-md-10"><input class="form-control" required name="teacherCreditToBeTaken" readonly id="creditTakenInputId" @*value="@teacherCreditToBeTaken"*@ /></div>
+                                    <div class="col-md-10"><input class="form-control" required name="TeacherCreditToBeTaken" readonly id="creditTakenInputId" @*value="@teacherCreditToBeTaken"*@ /></div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Remaining Credit:</label>
-                                    <div class="col-md-10"><input class="form-control" required name="teacherRemainingCredit" readonly id="remainingCreditInputId" @*value="@teacherRemainingCredit"*@ /></div>
+                                    <div class="col-md-10"><input class="form-control" required name="TeacherRemainingCredit" readonly id="remainingCreditInputId" @*value="@teacherRemainingCredit"*@ /></div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2 ">Course Code:</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" required name="courseCode" id="courseCodeDropdownId">
-                                            <option value=0>Select a Course Code</option>
+                                        <select class="form-control" required name="CourseId" id="courseCodeDropdownId">
+                                            @*<option value=0>Select a Course Code</option>*@
                                             @*@foreach (var a in courseCodes)
-                                            {
-                                                <option value="@a.courseCode">@a.courseCode</option>
-                                            }*@
+                                                {
+                                                    <option value="@a.courseCode">@a.courseCode</option>
+                                                }*@
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Name</label>
-                                    <div class="col-md-10"><input class="form-control" name="courseName" readonly id="courseNameId" @*value="@courseName"*@ /></div>
+                                    <div class="col-md-10"><input class="form-control" required readonly id="courseNameId" @*value="@courseName"*@ /></div>
                                 </div>
 
 
                                 <div class="form-group col-md-12">
-                                        <label class="col-md-2 control-label">Credit</label>
-                                        <div class="col-md-10"><input class="form-control" name="courseCredit" readonly id="courseCreditId" @*value="@courseCredit"*@ /></div>
+                                    <label class="col-md-2 control-label">Credit</label>
+                                    <div class="col-md-10"><input class="form-control" required readonly id="courseCreditId" @*value="@courseCredit"*@ /></div>
                                 </div>
 
                                 <div class="form-group col-md-12">
                                     <div class="col-md-4 col-md-offset-8 col-xs-6 col-xs-offset-6  btn-group">
                                         <input class="btn btn-default col-md-6 col-xs-6" type="button" value="view list" onclick="location.href='@Url.Action("ViewAllCourses", "Course")'" />
-                                        <input class="btn btn-default col-md-6 col-xs-6" type="submit" value="Assign" />
+                                        <input class="btn btn-default col-md-6 col-xs-6" type="submit" value="Assign" id="submitBtnId" />
                                     </div>
                                 </div>
                             </form>
@@ -114,11 +114,15 @@
 
 <script type='text/javascript'>
     $(function () {
-        $("#departmentDropdownId").change(function () {
-            alert("department dropdown changed");
+        $("#departmentDropdownId").change(function () {//for every change course other options should be changed
             $("#teacherDropdownId").empty();
-            var department = $("#departmentDropdownId").val();
-            var jasonData = { dept: department };
+            $("#creditTakenInputId").val("");
+            $("#remainingCreditInputId").val("");
+            $("#courseCodeDropdownId").empty();
+            $("#courseNameId").val("");
+            $("#courseCreditId").val("");
+            var departmentId = $("#departmentDropdownId").val();
+            var jasonData = { deptId: departmentId };
             $.ajax({//to get the list of teachers from selected department
                     type: "POST",
                     url: '@Url.Action("GetTeacherByDeptId", "CourseAssignToTeacher")',
@@ -126,24 +130,27 @@
                     data: JSON.stringify(jasonData),
                     dataType: "json",
                 success: function (data) {
-                    $("#teacherDropdownId").append('<option '  +  '>' + "Select Teacher" + '</option>');
+                    $("#teacherDropdownId").append('<option'  +  '>' + "Select Teacher" + '</option>');
                     $.each(data, function (key, value) {
-                            $("#teacherDropdownId").append('<option value=' + value + '>' + value + '</option>');
+                        $("#teacherDropdownId").append('<option value=' + value.TeacherId + '>' + value.TeacherName + '</option>');
                     });
                 },
-                failure: function (response) { alert(response.d); },
-                error: function (response) { alert(response.d); }
+                failure: function (response) { alert(response.d + "hello"); },
+                error: function (response) { alert(response.d +  "hello2"); }
             });//return false;
-            $.ajax({
+
+
+
+            $.ajax({//to get the course id according to chosen department
                     type: "POST",
-                    url: '@Url.Action("GetCourseCodeByDept", "CourseAssignToTeacher")',
+                    url: '@Url.Action("GetCourseListByDeptId", "CourseAssignToTeacher")',
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(jasonData),
                     dataType: "json",
                 success: function (data) {
-                    $("#courseCodeDropdownId").append('<option '  +  '>' + "Select Course Code" + '</option>');
+                    $("#courseCodeDropdownId").append('<option'  +  '>' + "Select Course Code" + '</option>');
                     $.each(data, function (key, value) {
-                        $("#courseCodeDropdownId").append('<option value=' + value + '>' + value + '</option>');
+                        $("#courseCodeDropdownId").append('<option value=' + value.courseId + '>' + value.courseCode + '</option>');
                     });
                 },
                 failure: function (response) { alert(response.d); },
@@ -151,53 +158,118 @@
             });//return false;
         });
 
-            $("#teacherDropdownId").change(function () {
-            $("#creditTakenInputId").val("");
-                $("#remainingCreditInputId").val("");
-                var teacher = $("#teacherDropdownId :selected").text();
-                //alert($("#teacherDropdownId :selected").text());
-                var jasonData = { teacherName: teacher };
-                var teacherCreditToBeTaken = 0;
-                $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("GetCreditByTeacherName", "CourseAssignToTeacher")',
+        $("#teacherDropdownId").change(function () {
+           // to  fill the input field "Credit to be taken:" & "Remaining Credit:"
+            $("#creditTakenInputId").empty();
+            $("#remainingCreditInputId").empty();
+            ///var teacher = $("#teacherDropdownId :selected").text();
+            var teacherIdd = $("#teacherDropdownId").val();
+            //alert($("#teacherDropdownId :selected").text());
+            var jasonData = { teacherId: teacherIdd };
+            var teacherCreditToBeTaken = 0;
+            var remainingCredit = 0;
+                $.ajax({ // to get the credit to be taken for a teacher
+                type: "POST",
+                        url: '@Url.Action("GetCreditByTeacherId", "CourseAssignToTeacher")',
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify(jasonData),
                         dataType: "json",
                     success: function (data) {
-                        //alert("me " + data);
-                        teacherCreditToBeTaken = data;
+                    //alert("me " + data);
+                    teacherCreditToBeTaken = data;
                         //alert(teacherCreditToBeTaken);
                         $("#creditTakenInputId").val(data);
-                    },
+                },
                     failure: function (response) { alert(response.d); },
                     error: function (response) { alert(response.d); }
-                });
-                $.ajax({
+            });
+            var jasonData2 = { teacherId: teacherIdd};
+                $.ajax({// for remaining credit
                         type: "POST",
-                        url: '@Url.Action("getAssignedCreditByTeacherName", "CourseAssignToTeacher")',
+                        url: '@Url.Action("GetRemainingCreditByTeacherId", "CourseAssignToTeacher")',
                         contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(jasonData),
+                        data: JSON.stringify(jasonData2),
                         dataType: "json",
                     success: function (data) {
-                        //alert("2me1 " + data);
-                        //alert("2me2 " + teacherCreditToBeTaken)
-                        var remainingCredit = parseInt(teacherCreditToBeTaken) - parseInt(data);
-                        $("#remainingCreditInputId").val((remainingCredit));
+                        remainingCredit = parseInt(data);
+
+                        $("#remainingCreditInputId").val(remainingCredit);
                     },
                     failure: function (response) { alert(response.d); },
                     error: function (response) { alert(response.d); }
                 });
         });
 
+        $("#courseCodeDropdownId").change(function () {// to fill up Name & Credit according to courseCode dropdown
+            $("#courseNameId").empty();
+            $("#courseCreditId").empty();
+            //$("#courseNameId").val("");
+            //$("#courseCreditId").val("");
+            ///var teacher = $("#teacherDropdownId :selected").text();
+            var courseIdd = $("#courseCodeDropdownId").val();
+                //alert($("#teacherDropdownId :selected").text());
+            var courseName = "";
+            var courseCredit = 0;
+            var jasonData = { courseId: courseIdd };
+                $.ajax({// to get courseName & courseCredit
+                type: "POST",
+                        url: '@Url.Action("GetCourseModelByCourseId", "CourseAssignToTeacher")',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(jasonData),
+                        dataType: "json",
+                    success: function (data) {
+                    //alert("me " + data);
+                    teacherCreditToBeTaken = data;
+                        //alert(teacherCreditToBeTaken);
+                        courseName = data.courseName;
+                        courseCredit = data.courseCredit;
+
+                        $("#courseNameId").val(data.courseName);
+                        $("#courseCreditId").val(data.courseCredit);
+                },
+                    failure: function (response) { alert(response.d); },
+                    error: function (response) { alert(response.d); }
+            });
+        });
 
 
+        $("#submitBtnId").click(function () {//validate
+            //var teacher = $("#teacherDropdownId :selected").text();
+            var remainingCredit = $("#remainingCreditInputId").val();
+            var courseCredit = $("#courseCreditId").val();
+            //check if credit is more than capability
 
 
+            var jasonData = { courseId: teacher };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetNameCreditByCourseId", "CourseAssignToTeacher")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(jasonData),
+                dataType: "json",
+                success: function (data) {
+                    //alert("me " + data);
+                    teacherCreditToBeTaken = data;
+                    //alert(teacherCreditToBeTaken);
+                    courseName = data.courseName;
+                    courseCredit = int.parseInt(data.courseCredit);
+                    $("#courseNameId").val(data.courseName);
+                    $("#courseCreditId").val(data.courseCredit);
+                },
+                failure: function (response) { alert(response.d); },
+                error: function (response) { alert(response.d); }
+            });
+        });
     });
 
+</script>
 
-    @* $("#teacherDropdownId").change(function () {
+
+
+
+
+@* $("#teacherDropdownId").change(function () {
         alert("department dropdown changed");
         var teacher = $("teacherDropdownId").val();
         var jasonData = { teacherName: teacher };
@@ -228,4 +300,3 @@
             error: function (response) { alert(response.d); }
         });
     });*@
-</script>

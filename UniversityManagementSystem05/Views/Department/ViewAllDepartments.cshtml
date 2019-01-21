@@ -59,9 +59,9 @@
                                         @foreach (DepartmentModel aDepartmentModel in list)
                 {
                                             <tr>
-                                                <td align="center" > @aDepartmentModel.departmentCode </td>
-                                                <td align="center"> @aDepartmentModel.departmentName </td>
-                                                <td align="center"> <a href="@Url.Action("EditDepartmentFromList", "Department", new { departmentId=aDepartmentModel.departmentId})">Edit</a> | <a href="@Url.Action("DeleteDepartmentFromList", "Department", new { departmentId=aDepartmentModel.departmentId})">Delete</a> </td>
+                                                <td align="center" > @aDepartmentModel.DepartmentCode </td>
+                                                <td align="center"> @aDepartmentModel.DepartmentName </td>
+                                                <td align="center"> <a href="@Url.Action("EditDepartmentFromList", "Department", new { DepartmentId=aDepartmentModel.DepartmentId})">Edit</a> | <a href="@Url.Action("DeleteDepartmentFromList", "Department", new { DepartmentId=aDepartmentModel.DepartmentId})">Delete</a> </td>
                                             </tr>
                                         }
 

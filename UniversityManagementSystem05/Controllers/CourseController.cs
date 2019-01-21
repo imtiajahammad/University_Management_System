@@ -97,7 +97,7 @@ namespace UniversityManagementSystem05.Controllers
 
             }
             CourseModel aCourseModel = new CourseModel();
-            aCourseModel = aCourseManager.GetCourseForEdit(courseId);
+            aCourseModel = aCourseManager.GetCourseByCourseId(courseId);
             List<DepartmentModel> departments = aCourseManager.GetDepartmentList();
 
 

@@ -133,6 +133,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             }            
             return department;
         }
+        
 
         public DepartmentModel GetDepartmentById(int DeptId)
         {

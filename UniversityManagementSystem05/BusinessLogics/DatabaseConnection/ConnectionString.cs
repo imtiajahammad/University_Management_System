@@ -7,6 +7,6 @@ namespace UniversityManagementSystem05.businessLogics.ConnectionString
 {
     public class ConnectionString
     {
-        public string connectionString = @"Data Source=IMTIAJ-PC\IMTIAJSQL;Database=UniversityManagementSystem;Integrated Security=true";
+        public string connectionString = @"Data Source=IMTIAJ-PC;Database=UniversityManagementSystem;Integrated Security=true";
     }
 }

@@ -45,9 +45,9 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         }
 
 
-        public List<string> GetCourseNameCreditByDept(string dept)
+        public List<CourseModel> GetCourseListByDeptId(int deptId)
         {
-            return aCourseGateway.GetCourseNameCreditByDept(dept);
+            return aCourseGateway.GetCourseListByDeptId(deptId);
         }
 
         public string SaveCourse(CourseModel aCourseModel)
@@ -76,10 +76,10 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             return message;
         }
 
-        public CourseModel GetCourseForEdit(int courseId)
+        public CourseModel GetCourseByCourseId(int courseId)
         {
             CourseModel aCourseModel = new CourseModel();
-            aCourseModel = aCourseGateway.GetCourseForEdit(courseId);
+            aCourseModel = aCourseGateway.GetSingleCourseModel(courseId);
             return aCourseModel;
         }
 
@@ -99,6 +99,15 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             List<SemesterModel> semesters = new List<SemesterModel>();
             semesters = aSemesterManager.GetAllSemesters();
             return semesters;
+        }
+
+        public CourseModel GetCourseModelByCourseId(int courseId)
+        {
+            return aCourseGateway.GetSingleCourseModel(courseId);
+        }
+        public int GetCourseCreditByCourseId(int courseId)
+        {
+            return aCourseGateway.GetCourseCreditByCourseId(courseId);
         }
 
     }
