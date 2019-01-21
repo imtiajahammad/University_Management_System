@@ -30,6 +30,16 @@ namespace UniversityManagementSystem05.Controllers
             ViewBag.CourseCodeList = aCourseAssignManager.GetAllCourseCodes();
             return View();
         }
+        [HttpPost]
+        public ActionResult AssignTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
+        {
+
+
+            ViewBag.Departments = aCourseAssignManager.GetAllDepartments();
+            ViewBag.Teachers = aCourseAssignManager.GetAllTeachers();
+            ViewBag.CourseCodeList = aCourseAssignManager.GetAllCourseCodes();
+            return View();
+        }
 
         [HttpPost]
         public JsonResult GetTeacherByDeptId(int deptId)
@@ -84,11 +94,7 @@ namespace UniversityManagementSystem05.Controllers
             return Json(aCourseModel,JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult AssignTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
-        {
-            return View();
-        }
+
 
 
 
