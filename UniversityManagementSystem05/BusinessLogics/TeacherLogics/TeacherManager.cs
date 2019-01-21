@@ -97,7 +97,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             //}
         }
 
-        public TeacherModel GetTeacherForEdit(int teacherId)
+        public TeacherModel GetTeacherByTeacherId(int teacherId)
         {
             TeacherModel aTeacherModel = new TeacherModel();
             aTeacherModel = aTeacherGateWay.GetTeacherForEdit(teacherId);
