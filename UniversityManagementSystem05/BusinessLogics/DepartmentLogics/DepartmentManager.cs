@@ -71,15 +71,15 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
         public int UpdateDepartment(DepartmentModel aDepartmetModel)
         {
             //            string message = "";
-/*            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.departmentCode)){
-                return 5;
-            }
+            /*            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.departmentCode)){
+                            return 5;
+                        }
 
-            else if (aDepartmentGateway.IsDepartmentNameExist(aDepartmetModel.departmentName)){
+                        else if (aDepartmentGateway.IsDepartmentNameExist(aDepartmetModel.departmentName)){
 
-                return 6;
-            }
-            else */
+                            return 6;
+                        }
+                        else */
             {
                 int rowAffected = aDepartmentGateway.UpdateDepartment(aDepartmetModel);
 
@@ -88,12 +88,12 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
                 return rowAffected;
             }
 
-            
+
         }
 
         public int DeleteDepartment(int departmentId)
         {
-  //          string message = "";
+            //          string message = "";
 
             int rowAffected = aDepartmentGateway.DeleteDepartment(departmentId);
 

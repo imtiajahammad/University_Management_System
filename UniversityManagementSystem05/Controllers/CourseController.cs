@@ -12,7 +12,7 @@ namespace UniversityManagementSystem05.Controllers
 {
     public class CourseController : Controller
     {
-        
+
         CourseManager aCourseManager = new CourseManager();
         SemesterManager aSemesterManager = new SemesterManager();
         DepartmentManager aDepartmentManager = new DepartmentManager();
@@ -22,8 +22,8 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult SaveCourse()
         {
-            List<DepartmentModel> departmentList =   aCourseManager.GetDepartmentList();
-            List<SemesterModel> semesterList =  aCourseManager.GetAllSemesters();
+            List<DepartmentModel> departmentList = aCourseManager.GetDepartmentList();
+            List<SemesterModel> semesterList = aCourseManager.GetAllSemesters();
             ViewBag.departmentList = departmentList;
             ViewBag.semesterList = semesterList;
             return View();
@@ -99,8 +99,8 @@ namespace UniversityManagementSystem05.Controllers
             CourseModel aCourseModel = new CourseModel();
             aCourseModel = aCourseManager.GetCourseForEdit(courseId);
             List<DepartmentModel> departments = aCourseManager.GetDepartmentList();
-            
-            
+
+
             List<SemesterModel> semesters = aCourseManager.GetAllSemesters();
             ViewBag.Depts = departments;
             ViewBag.Sems = semesters;

@@ -27,7 +27,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpPost]
         public ActionResult SaveTeacher(TeacherModel aTeacherModel)
         {
-            
+
 
             //if (aTeacherModel.DesignationId == 0)
             //{
@@ -64,11 +64,11 @@ namespace UniversityManagementSystem05.Controllers
             if (teachers.Count == 0)
             {
                 string msg = "No data in the database for teachers";
-                ViewBag.Message= msg;
+                ViewBag.Message = msg;
             }
             else if (message > 0)
             {
-                ViewBag.Message= "Teacher Updated Successfully";
+                ViewBag.Message = "Teacher Updated Successfully";
             }
             ViewBag.TeacherList = teachers;
             return View();
@@ -87,14 +87,14 @@ namespace UniversityManagementSystem05.Controllers
                 }
                 else if (message == 5)
                 {
-                    ViewBag.Message = "Sorry! Teacher Email Exists !!";  
+                    ViewBag.Message = "Sorry! Teacher Email Exists !!";
 
                 }
             }
             TeacherModel aTeacherModel = new TeacherModel();
             aTeacherModel = aTeacherManager.GetTeacherForEdit(teacherId);
 
-            List<DepartmentModel> depts= aTeacherManager.GetAllDepartments();
+            List<DepartmentModel> depts = aTeacherManager.GetAllDepartments();
             List<DesignationModel> designations = aTeacherManager.GetAllDesignations();
             ViewBag.Depts = depts;
             ViewBag.Designations = designations;

@@ -38,9 +38,9 @@
 
 
     <div align="center">
-        @if (ViewBag.Message  != null)
+        @if (ViewBag.Message != null)
         {
-        <div id="msgId">  <span id="success-alert" class="text-danger">@ViewBag.Message</span> </div>
+            <div id="msgId">  <span id="success-alert" class="text-danger">@ViewBag.Message</span> </div>
         }
     </div>
 
@@ -79,11 +79,11 @@
                                     <label class="control-label col-md-2 ">Teacher Designation</label>
                                     <div class="col-md-10">
                                         <select class="form-control" required name="DesignationId" id="designationDropdownId">
-                                            <option ></option>
+                                            <option></option>
                                             @foreach (var a in designations)
-                                               {
-                                                    <option value="@a.DesignationId">@a.Designation</option>
-                                                }
+                                            {
+                                                <option value="@a.DesignationId">@a.Designation</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -91,11 +91,11 @@
                                     <label class="control-label col-md-2">Department</label>
                                     <div class="col-md-10">
                                         <select class="form-control" required name="DepartmentId" id="departmentDropdownId">
-                                            <option ></option>
+                                            <option></option>
                                             @foreach (var aDepartmentModel in departments)
-                                                 {
-                                                    <option value="@aDepartmentModel.DepartmentId">@aDepartmentModel.DepartmentName</option>
-                                                 }
+                                            {
+                                                <option value="@aDepartmentModel.DepartmentId">@aDepartmentModel.DepartmentName</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
     $(function () {
         @*$(window).on('load', function () {
             // your logic here`enter code here`
-            
+
 
            // $("#msgId").show().delay(3000).fadeOut();
            // $("#msgId").show().fadeIn('slow').delay(5000000000).hide();
@@ -156,9 +156,9 @@
              {
                  $('#msgId').hide().html(data).fadeIn('slow').delay(5000).hide(1);
              }
-            
+
              });*@
     });
-    
+
 
 </script>
