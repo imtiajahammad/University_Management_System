@@ -92,7 +92,7 @@ namespace UniversityManagementSystem05.Controllers
                 }
             }
             TeacherModel aTeacherModel = new TeacherModel();
-            aTeacherModel = aTeacherManager.GetTeacherForEdit(teacherId);
+            aTeacherModel = aTeacherManager.GetTeacherByTeacherId(teacherId);
 
             List<DepartmentModel> depts= aTeacherManager.GetAllDepartments();
             List<DesignationModel> designations = aTeacherManager.GetAllDesignations();
