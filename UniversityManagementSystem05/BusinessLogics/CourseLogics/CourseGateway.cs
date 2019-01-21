@@ -53,8 +53,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             }
             return rowAffected;
         }
-
-
         public bool IsCourseCodeExist(string CourseCode)
         {
             bool isCourseCodeExists = false;
@@ -78,9 +76,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
             return isCourseCodeExists;
         }
-
-
-
         public bool IsCourseNameExist(string CourseName)
         {
             bool isCourseNameExists = false;
@@ -106,7 +101,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 
             return isCourseNameExists;
         }
-
         public List<CourseModel> GetAllCourses()
         {
             List<CourseModel> courses = new List<CourseModel>();
@@ -126,7 +120,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
                 aCourseModel.courseId = Convert.ToInt32(reader["courseId"].ToString());
                 aCourseModel.courseCode = reader["courseCode"].ToString();
                 aCourseModel.courseName = reader["courseName"].ToString();
-                aCourseModel.courseCredit = Convert.ToInt32(reader["courseCredit"].ToString());
+                aCourseModel.courseCredit = Convert.ToDouble(reader["courseCredit"].ToString());
                 aCourseModel.courseDescription = reader["courseDescription"].ToString();
                 aCourseModel.departmentId = int.Parse(reader["departmentId"].ToString());
                 aCourseModel.semesterId= int.Parse(reader["semesterId"].ToString());
@@ -138,9 +132,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             connection.Close();
             return courses;
         }
-
-
-
         public CourseModel GetSingleCourseModel(int courseId)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -155,7 +146,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
                 aCourseModel.courseId = Convert.ToInt32(reader["courseId"].ToString());
                 aCourseModel.courseCode = reader["courseCode"].ToString();
                 aCourseModel.courseName = reader["courseName"].ToString();
-                aCourseModel.courseCredit = Convert.ToInt32(reader["courseCredit"].ToString());
+                aCourseModel.courseCredit = Convert.ToDouble(reader["courseCredit"].ToString());
                 aCourseModel.courseDescription = reader["courseDescription"].ToString();
                 aCourseModel.departmentId = int.Parse(reader["departmentId"].ToString());
                 aCourseModel.semesterId = int.Parse(reader["semesterId"].ToString());
@@ -166,7 +157,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             connection.Close();
             return aCourseModel;
         }
-
         public int GetCourseCreditByCourseId(int courseId)
         {
             SqlConnection con = new SqlConnection(connectionString);
@@ -177,10 +167,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             con.Close();
             return Convert.ToInt32(reader["courseCredit"].ToString());
         }
-
-
-
-
         public int DeleteCourse(int courseId)
         {
 
@@ -203,7 +189,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             }
             return rowAffected;
         }
-
         public int UpdateCourse(CourseModel aCourseModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -237,7 +222,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             }
             return rowAffected;
         }
-
         public List<string> GetCourseCodeList()
         {
             List<string> courseCodeList = new List<string>();
@@ -256,7 +240,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             connection.Close();
             return courseCodeList;
         }
-
         public List<string> GetCourseNameByCourseCode(string courseCode)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -273,7 +256,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
             list.Add(courseCredit.ToString());
             return list;
         }
-
         public List<string> GetCourseNameCreditByDept(string dept)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -297,7 +279,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
                 return null;
             }
         }
-
         public List<CourseModel> GetCourseListByDeptId(int deptId)
         {
             SqlConnection con = new SqlConnection(connectionString);
@@ -316,7 +297,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
                     aCourseModel.courseId = Convert.ToInt32(aSqlDataReader["courseId"].ToString());
                     aCourseModel.courseCode = aSqlDataReader["courseCode"].ToString();
                     aCourseModel.courseName = aSqlDataReader["courseName"].ToString();
-                    aCourseModel.courseCredit = Convert.ToInt32(aSqlDataReader["courseCredit"].ToString());
+                    aCourseModel.courseCredit = Convert.ToDouble(aSqlDataReader["courseCredit"].ToString());
                     aCourseModel.courseDescription = aSqlDataReader["courseDescription"].ToString();
                     aCourseModel.departmentId = int.Parse(aSqlDataReader["departmentId"].ToString());
                     aCourseModel.semesterId = int.Parse(aSqlDataReader["semesterId"].ToString());
