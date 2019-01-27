@@ -234,15 +234,16 @@
 
 
         $("#submitBtnId").click(function () {//validate
+            alert("submit buttorn has clicked")
             //var teacher = $("#teacherDropdownId :selected").text();
             var remainingCredit = $("#remainingCreditInputId").val();
             var courseCredit = $("#courseCreditId").val();
             //check if credit is more than capability
 
 
-            var jasonData = { courseId: teacher };
-
-            $.ajax({
+            //var jasonData = { courseId: teacher };
+            
+            @*$.ajax({
                 type: "POST",
                 url: '@Url.Action("GetNameCreditByCourseId", "CourseAssignToTeacher")',
                 contentType: "application/json; charset=utf-8",
@@ -259,7 +260,8 @@
                 },
                 failure: function (response) { alert(response.d); },
                 error: function (response) { alert(response.d); }
-            });
+        });*@
+        
         });
     });
 
