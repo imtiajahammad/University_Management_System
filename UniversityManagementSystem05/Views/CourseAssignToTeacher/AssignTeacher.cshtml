@@ -44,7 +44,7 @@
                                     <label class="control-label col-md-2">Department:</label>
                                     <div class="col-md-10">
                                         <select class="form-control" required name="DepartmentId" id="departmentDropdownId">
-                                            <option>Choose a department</option>
+                                            <option value="">Choose a department</option>
                                             @foreach (var a in departments)
                                             {
                                                 <option value="@a.DepartmentId">@a.DepartmentName</option>
@@ -130,7 +130,7 @@
                     data: JSON.stringify(jasonData),
                     dataType: "json",
                 success: function (data) {
-                    $("#teacherDropdownId").append('<option'  +  '>' + "Select Teacher" + '</option>');
+                    $("#teacherDropdownId").append('<option value=' +'' +  '>' + "Select Teacher" + '</option>');
                     $.each(data, function (key, value) {
                         $("#teacherDropdownId").append('<option value=' + value.TeacherId + '>' + value.TeacherName + '</option>');
                     });
@@ -148,7 +148,7 @@
                     data: JSON.stringify(jasonData),
                     dataType: "json",
                 success: function (data) {
-                    $("#courseCodeDropdownId").append('<option'  +  '>' + "Select Course Code" + '</option>');
+                    $("#courseCodeDropdownId").append('<option value=' + '' +  '>' + "Select Course Code" + '</option>');
                     $.each(data, function (key, value) {
                         $("#courseCodeDropdownId").append('<option value=' + value.courseId + '>' + value.courseCode + '</option>');
                     });
