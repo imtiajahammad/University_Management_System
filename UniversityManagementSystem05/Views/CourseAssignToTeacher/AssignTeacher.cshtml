@@ -233,7 +233,7 @@
         });
 
 
-        $("#submitBtnId").click(function () {//validate
+        @*$("#submitBtnId").click(function () {//validate
             alert("submit buttorn has clicked")
             //var teacher = $("#teacherDropdownId :selected").text();
             var remainingCredit = $("#remainingCreditInputId").val();
@@ -243,7 +243,7 @@
 
             //var jasonData = { courseId: teacher };
             
-            @*$.ajax({
+            $.ajax({
                 type: "POST",
                 url: '@Url.Action("GetNameCreditByCourseId", "CourseAssignToTeacher")',
                 contentType: "application/json; charset=utf-8",
@@ -260,9 +260,9 @@
                 },
                 failure: function (response) { alert(response.d); },
                 error: function (response) { alert(response.d); }
-        });*@
-        
         });
+        
+        });*@
     });
 
 </script>
