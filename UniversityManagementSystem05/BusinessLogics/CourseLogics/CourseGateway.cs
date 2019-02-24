@@ -159,23 +159,28 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         }
         public int GetCourseCreditByCourseId(int courseId)
         {
+            int credit = 0; 
             SqlConnection con = new SqlConnection(connectionString);
             string query = "SELECT courseCredit FROM course_tbl WHERE courseId=@courseId";
             SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@courseId", courseId);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
-            con.Close();
-            return Convert.ToInt32(reader["courseCredit"].ToString());
+            while (reader.Read())
+            {
+                 credit = Convert.ToInt32(reader["courseCredit"].ToString());
+            }
+            //int aaa = Convert.ToInt32(reader["courseCredit"].ToString());
+            con.Close();           
+            return credit;
         }
         public int DeleteCourse(int courseId)
         {
-
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "DELETE FROM course_tbl WHERE courseId=@courseId";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@courseId", courseId);
-
             int rowAffected = 0;
             try
             {
