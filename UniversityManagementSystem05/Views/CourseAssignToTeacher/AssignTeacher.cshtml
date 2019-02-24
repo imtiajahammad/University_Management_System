@@ -114,15 +114,22 @@
 
 <script type='text/javascript'>
     $(function () {
+
         $("#departmentDropdownId").change(function () {//for every change course other options should be changed
-            $("#teacherDropdownId").empty();
-            $("#creditTakenInputId").val("");
-            $("#remainingCreditInputId").val("");
-            $("#courseCodeDropdownId").empty();
-            $("#courseNameId").val("");
-            $("#courseCreditId").val("");
+
             var departmentId = $("#departmentDropdownId").val();
-            var jasonData = { deptId: departmentId };
+            if (departmentId == null || departmentId == "") {
+                //alert(departmentId + "+NULL");
+                $("#teacherDropdownId").empty();
+                $("#creditTakenInputId").val("");
+                $("#remainingCreditInputId").val("");
+                $("#courseCodeDropdownId").empty();
+                $("#courseNameId").val("");
+                $("#courseCreditId").val("");
+            }
+            else {
+                //alert(departmentId + "+ELSE")
+                var jasonData = { deptId: departmentId };
             $.ajax({//to get the list of teachers from selected department
                     type: "POST",
                     url: '@Url.Action("GetTeacherByDeptId", "CourseAssignToTeacher")',
@@ -138,9 +145,6 @@
                 failure: function (response) { alert(response.d + "hello"); },
                 error: function (response) { alert(response.d +  "hello2"); }
             });//return false;
-
-
-
             $.ajax({//to get the course id according to chosen department
                     type: "POST",
                     url: '@Url.Action("GetCourseListByDeptId", "CourseAssignToTeacher")',
@@ -156,15 +160,25 @@
                 failure: function (response) { alert(response.d); },
                 error: function (response) { alert(response.d); }
             });//return false;
+            }
+
         });
 
         $("#teacherDropdownId").change(function () {
            // to  fill the input field "Credit to be taken:" & "Remaining Credit:"
-            $("#creditTakenInputId").empty();
-            $("#remainingCreditInputId").empty();
+            //$("#creditTakenInputId").empty();
+            //$("#remainingCreditInputId").empty();
             ///var teacher = $("#teacherDropdownId :selected").text();
             var teacherIdd = $("#teacherDropdownId").val();
-            //alert($("#teacherDropdownId :selected").text());
+
+            if (teacherIdd == null || teacherIdd=="") {
+
+                //alert(teacherIdd +"null");
+                $("#creditTakenInputId").val("");
+                $("#remainingCreditInputId").val("");
+            }
+            else {
+                //alert(teacherIdd+ " else ");
             var jasonData = { teacherId: teacherIdd };
             var teacherCreditToBeTaken = 0;
             var remainingCredit = 0;
@@ -192,23 +206,29 @@
                         dataType: "json",
                     success: function (data) {
                         remainingCredit = parseInt(data);
-
+                        //alert(remainingCredit = parseInt(data));
                         $("#remainingCreditInputId").val(remainingCredit);
                     },
                     failure: function (response) { alert(response.d); },
                     error: function (response) { alert(response.d); }
                 });
+            }
+
         });
 
         $("#courseCodeDropdownId").change(function () {// to fill up Name & Credit according to courseCode dropdown
-            $("#courseNameId").empty();
-            $("#courseCreditId").empty();
+
             //$("#courseNameId").val("");
             //$("#courseCreditId").val("");
             ///var teacher = $("#teacherDropdownId :selected").text();
             var courseIdd = $("#courseCodeDropdownId").val();
                 //alert($("#teacherDropdownId :selected").text());
-            var courseName = "";
+            if (courseIdd == null || courseIdd == "") {
+                $("#courseNameId").val("");
+                $("#courseCreditId").val("");
+            }
+            else {
+                            var courseName = "";
             var courseCredit = 0;
             var jasonData = { courseId: courseIdd };
                 $.ajax({// to get courseName & courseCredit
@@ -230,20 +250,29 @@
                     failure: function (response) { alert(response.d); },
                     error: function (response) { alert(response.d); }
             });
+            }
+
+
         });
 
 
-        @*$("#submitBtnId").click(function () {//validate
-            alert("submit buttorn has clicked")
+        $("#submitBtnId").click(function () {//validate
+            //alert("submit buttorn has clicked");
+            //var courseCreditBeingTaken = $("#courseCreditId").val(data.courseCredit);
+            //alert(courseCreditBeingTaken);
+            //var teacherID=$('#courseCodeDropdownId').val()
+            //alert(teacherID);
+
+
             //var teacher = $("#teacherDropdownId :selected").text();
-            var remainingCredit = $("#remainingCreditInputId").val();
-            var courseCredit = $("#courseCreditId").val();
+            //var remainingCredit = $("#remainingCreditInputId").val();
+            //var courseCredit = $("#courseCreditId").val();
             //check if credit is more than capability
 
 
             //var jasonData = { courseId: teacher };
-            
-            $.ajax({
+
+            @*$.ajax({
                 type: "POST",
                 url: '@Url.Action("GetNameCreditByCourseId", "CourseAssignToTeacher")',
                 contentType: "application/json; charset=utf-8",
@@ -260,9 +289,9 @@
                 },
                 failure: function (response) { alert(response.d); },
                 error: function (response) { alert(response.d); }
+            });*@
+
         });
-        
-        });*@
     });
 
 </script>
