@@ -40,10 +40,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         {
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "INSERT INTO courseAssignToTeacher_tbl(departmentId,teacherId,courseId) VALUES (@departmentId,@teacherId,@courseId)";
-
             SqlCommand cmd = new SqlCommand(query, connection);
-
-
             cmd.Parameters.Clear();
             cmd.Parameters.AddWithValue("@departmentId", courseAssignToTeacherModel.DepartmentId);
             cmd.Parameters.AddWithValue("@teacherId", courseAssignToTeacherModel.TeacherId);
@@ -57,7 +54,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             }
             catch (Exception e)
             {
-
             }
             return rowAffected;
         }
@@ -132,6 +128,63 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             return rowAffected;
         }
 
+        /// <summary>
+        /// check if course is already assigned to another teacher
+        /// </summary>
+        /// <param name="courseID"></param>
+        /// <returns></returns>
+        public bool IsCourseExist(int courseID)
+        {
+            bool isCourseExists = false;
 
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            string query = "SELECT CourseID FROM courseAssignToTeacher_tbl WHERE CourseID= @CourseID";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.Clear();
+
+            //            command.Parameters.Add("DeptCode", SqlDbType.NVarChar);
+            //            command.Parameters["DeptCode"].Value = DeptCode;
+            command.Parameters.AddWithValue("@CourseID", courseID);
+
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                isCourseExists = true;
+            }
+            connection.Close();
+
+            return isCourseExists;
+        }
+
+        /*
+        public bool IsCourseExist(int courseID)
+        {
+            bool isCourseExists = false;
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            string query = "SELECT CourseID FROM courseAssignToTeacher_tbl WHERE CourseID= @CourseID";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.Clear();
+
+            //            command.Parameters.Add("DeptCode", SqlDbType.NVarChar);
+            //            command.Parameters["DeptCode"].Value = DeptCode;
+            command.Parameters.AddWithValue("@CourseID", courseID);
+
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                isCourseExists = true;
+            }
+            connection.Close();
+
+            return isCourseExists;
+        }
+        */
     }
 }
