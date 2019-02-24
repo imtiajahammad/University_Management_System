@@ -59,6 +59,13 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             CourseModel aCourseModel = aCourseManager.GetCourseModelByCourseId(courseId);
             return aCourseModel;
         }
+
+        /// <summary>
+        /// takes id and fetch list of assign credit list 
+        /// then uses GetTotalAssignedCreditFromAssignedTeachers method to get total 
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns>total assigned credit</returns>
         public int GetAssignedCreditByTeacherId(int teacherId)
         {
             List<int> courseIdFromAssignedTeachers = new List<int>();
@@ -67,8 +74,16 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
 
             return totalAssignedCredit;
         }
+        /// <summary>
+        /// takes list of integer and returns summation of them
+        /// </summary>
+        /// <param name="courseIdFromAssignedTeachers"></param>
+        /// <returns> "sum of integers in int type"</returns>
         public int GetTotalAssignedCreditFromAssignedTeachers(List<int> courseIdFromAssignedTeachers)
         {
+            //error
+            //I am making an addition to courseId list
+            //imtiaj 
             int total = 0;
             if (courseIdFromAssignedTeachers.Count >0)
             {
@@ -76,7 +91,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
                 {
                     total += aCourseManager.GetCourseCreditByCourseId(i);
                 }
-
                 return total;
             }
             else
@@ -107,6 +121,13 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         {
             CourseAssignToTeacherModel aCourseAssignToTeacherModel = aCourseAssignGateway.GetSingleCourseAssignToTeacherModel(assignedCourseId);
             return aCourseAssignToTeacherModel;
+        }
+        public int SaveCourseAssignToTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
+        {
+
+            int input = aCourseAssignGateway.SaveCourseAssignToTeacher(courseAssignToTeacherModel);
+            return input;
+
         }
     }
 }
