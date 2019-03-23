@@ -35,22 +35,29 @@ namespace UniversityManagementSystem05.Controllers
             ViewBag.Teachers = aCourseAssignManager.GetAllTeachers();
             ViewBag.CourseCodeList = aCourseAssignManager.GetAllCourseCodes();
             //do the code to store in the database
-
-            int stored = aCourseAssignManager.SaveCourseAssignToTeacher(courseAssignToTeacherModel);
-            if (stored == 1)
+            if (aCourseAssignManager.IsCourseExist(courseAssignToTeacherModel.CourseId))
             {
-                ViewBag.Message=("Course Assign to Teacher done successfully");
+                ViewBag.Message = ("Course is already assigned");
             }
             else
             {
-                ViewBag.Message=("Course Assign to Teacher Error");
+                int stored = aCourseAssignManager.SaveCourseAssignToTeacher(courseAssignToTeacherModel);
+                if (stored == 1)
+                {
+                    ViewBag.Message = ("Course Assign to Teacher done successfully");
+                }
+                else
+                {
+                    ViewBag.Message = ("Course Assign to Teacher Error");
+                }
             }
+
             return View();
 
             /* 
-             1. one course should be assigned to one teacher only
+             1. one course should be assigned to one teacher only-done
              2. if teacher credit exceed, an dialog box with yes/no pop up and work accordingly
-             3. remaining credit returning false count
+             3. remaining credit returning false count--done
              */
         }
 
