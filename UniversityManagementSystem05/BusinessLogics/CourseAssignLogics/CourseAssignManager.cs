@@ -99,7 +99,11 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             }
 
         }
-
+        public bool IsCourseExist(int courseID)
+        {
+            bool isCourseExists = aCourseAssignGateway.IsCourseExist(courseID);         
+            return isCourseExists;
+        }
         public int DeleteAssignedCourseByCourseAssignId(int AssignedCourseId)
         {
             //          string message = "";
