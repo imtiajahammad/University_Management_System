@@ -39,7 +39,7 @@
                 <div>
                     <div class="container">
                         <div class="row col-md-12">
-                            <form method="post" action="AssignTeacher" class="form-horizontal col-md-12">
+                            <form method="post" action="AssignTeacher" class="form-horizontal col-md-12" id="formId">
                                 <div class="form-group col-md-12">
                                     <label class="control-label col-md-2">Department:</label>
                                     <div class="col-md-10">
@@ -98,7 +98,7 @@
                                 <div class="form-group col-md-12">
                                     <div class="col-md-4 col-md-offset-8 col-xs-6 col-xs-offset-6  btn-group">
                                         <input class="btn btn-default col-md-6 col-xs-6" type="button" value="view list" onclick="location.href='@Url.Action("ViewAllCourses", "Course")'" />
-                                        <input class="btn btn-default col-md-6 col-xs-6" type="submit" value="Assign" id="submitBtnId" />
+                                        <input class="btn btn-default col-md-6 col-xs-6" type="button" value="Assign" id="submitBtnId" />
                                     </div>
                                 </div>
                             </form>
@@ -116,7 +116,7 @@
     $(function () {
 
         $("#departmentDropdownId").change(function () {//for every change course other options should be changed
-
+            
             var departmentId = $("#departmentDropdownId").val();
             if (departmentId == null || departmentId == "") {
                 //alert(departmentId + "+NULL");
@@ -128,6 +128,12 @@
                 $("#courseCreditId").val("");
             }
             else {
+                $("#teacherDropdownId").empty();
+                $("#creditTakenInputId").val("");
+                $("#remainingCreditInputId").val("");
+                $("#courseCodeDropdownId").empty();
+                $("#courseNameId").val("");
+                $("#courseCreditId").val("");
                 //alert(departmentId + "+ELSE")
                 var jasonData = { deptId: departmentId };
             $.ajax({//to get the list of teachers from selected department
@@ -178,6 +184,8 @@
                 $("#remainingCreditInputId").val("");
             }
             else {
+                $("#creditTakenInputId").val("");
+                $("#remainingCreditInputId").val("");
                 //alert(teacherIdd+ " else ");
             var jasonData = { teacherId: teacherIdd };
             var teacherCreditToBeTaken = 0;
@@ -228,6 +236,8 @@
                 $("#courseCreditId").val("");
             }
             else {
+                $("#courseNameId").val("");
+                $("#courseCreditId").val("");
                             var courseName = "";
             var courseCredit = 0;
             var jasonData = { courseId: courseIdd };
@@ -258,6 +268,9 @@
 
         $("#submitBtnId").click(function () {//validate
             //alert("submit buttorn has clicked");
+            var teacherId = $("#teacherDropdownId").val();
+            var newCredit = $("#courseCreditId").val();
+            var jasonData = { teacherID: teacherId, currentCreditTaking: newCredit };
             //var courseCreditBeingTaken = $("#courseCreditId").val(data.courseCredit);
             //alert(courseCreditBeingTaken);
             //var teacherID=$('#courseCodeDropdownId').val()
@@ -271,25 +284,39 @@
 
 
             //var jasonData = { courseId: teacher };
-
-            @*$.ajax({
+            var overFlowBool = false;
+            $.ajax({
                 type: "POST",
-                url: '@Url.Action("GetNameCreditByCourseId", "CourseAssignToTeacher")',
+                url: '@Url.Action("CheckTakenCreditOverFlowsRemainingCredit", "CourseAssignToTeacher")',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(jasonData),
                 dataType: "json",
                 success: function (data) {
+                    overFlowBool = data;
+                    //alert(data);
                     //alert("me " + data);
-                    teacherCreditToBeTaken = data;
+                    //teacherCreditToBeTaken = data;
                     //alert(teacherCreditToBeTaken);
-                    courseName = data.courseName;
-                    courseCredit = int.parseInt(data.courseCredit);
-                    $("#courseNameId").val(data.courseName);
-                    $("#courseCreditId").val(data.courseCredit);
+                    //courseName = data.courseName;
+                    //courseCredit = int.parseInt(data.courseCredit);
+                    //$("#courseNameId").val(data.courseName);
+                    //$("#courseCreditId").val(data.courseCredit);
                 },
                 failure: function (response) { alert(response.d); },
                 error: function (response) { alert(response.d); }
-            });*@
+            });
+            if (!overFlowBool) {
+                //dialog box
+                //function myFunction() { 
+                    if (confirm("You are assigning more than the teacher's credit!")) {
+                        document.getElementById("formId").submit();
+                    }
+                    else {
+                        document.location.reload();
+                    }
+                    
+                //}
+            }
 
         });
     });
