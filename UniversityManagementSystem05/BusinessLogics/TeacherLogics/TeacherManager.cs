@@ -10,11 +10,12 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 {
     public class TeacherManager
     {
-        TeacherGateWay aTeacherGateWay = new TeacherGateWay();
-        DepartmentGateway aDepartmentGateway = new DepartmentGateway();
-        DesignationGateway aDesignationGateway = new DesignationGateway();
+        
+        
+        
         public string SaveTeacher(TeacherModel aTeacherModel)
         {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             string message = "";
             if (aTeacherGateWay.IsTeacherEmailExist(aTeacherModel.TeacherEmail))
             {
@@ -37,6 +38,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public List<string> GetAllDepartmentCodes()
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             List<string> listOfDepartmentCode = new List<string>();
             listOfDepartmentCode = aDepartmentGateway.GetDepartmentCodeList();
             return listOfDepartmentCode;
@@ -44,7 +46,8 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public List<TeacherModel> GetTeachersByDepartmentId(int deptId)
         {
-//          TeacherGateWay aTeacherGateWay = new TeacherGateWay();
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
+            //          TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             List<TeacherModel> teachers = new List<TeacherModel>();
             teachers = aTeacherGateWay.GetTeachersByDept(deptId);
             return teachers;
@@ -52,6 +55,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public int GetCreditByTeacherId(int teacherId)
         {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             return aTeacherGateWay.GetCreditByTeacherId(teacherId);
         }
 
@@ -62,6 +66,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public List<DesignationModel> GetAllDesignations()
         {
+            DesignationGateway aDesignationGateway = new DesignationGateway();
             List<DesignationModel> designations = new List<DesignationModel>();
             designations = aDesignationGateway.GetAllDesignations();
             return designations;
@@ -69,6 +74,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public List<DepartmentModel> GetAllDepartments()
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             List<DepartmentModel> listOfDepartments= new List<DepartmentModel>();
             listOfDepartments= aDepartmentGateway.GetAllDepartments();
             return listOfDepartments;
@@ -76,21 +82,23 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public List<TeacherModel> GetAllTeachers()
         {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             List<TeacherModel> teachers = aTeacherGateWay.GetAllTeachers();
             return teachers;
         }
 
         public int UpdateTeacher(TeacherModel aTeacherModel)
         {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             //{
-                
-                //if (aTeacherGateWay.IsTeacherEmailExist(aTeacherModel.teacherEmail))
-                //{
-                //    return 5;
-                //}
-                //else
-                //{
-                    int rowAffected = aTeacherGateWay.UpdateTeacher(aTeacherModel);
+
+            //if (aTeacherGateWay.IsTeacherEmailExist(aTeacherModel.teacherEmail))
+            //{
+            //    return 5;
+            //}
+            //else
+            //{
+            int rowAffected = aTeacherGateWay.UpdateTeacher(aTeacherModel);
                     return rowAffected;
             //    }
                 
@@ -99,6 +107,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public TeacherModel GetTeacherByTeacherId(int teacherId)
         {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             TeacherModel aTeacherModel = new TeacherModel();
             aTeacherModel = aTeacherGateWay.GetTeacherForEdit(teacherId);
             return aTeacherModel;
@@ -106,6 +115,7 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public int DeleteTeacher(int deleteId)
         {
+            TeacherGateWay aTeacherGateWay = new TeacherGateWay();
             //          string message = "";
             int rowAffected = aTeacherGateWay.DeleteTeacher(deleteId);
             //return message;

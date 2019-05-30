@@ -12,8 +12,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
 {
     public class CourseGateway : ConnectionString
     {
-        DepartmentManager aDepartmentManager = new DepartmentManager();
-        SemesterManager aSemesterManager = new SemesterManager();
+        
+        
         //SqlConnection connection = new SqlConnection(connectionString);
         
 
@@ -103,6 +103,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         }
         public List<CourseModel> GetAllCourses()
         {
+            DepartmentManager aDepartmentManager = new DepartmentManager();
+            SemesterManager aSemesterManager = new SemesterManager();
             List<CourseModel> courses = new List<CourseModel>();
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM course_tbl";
@@ -134,6 +136,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         }
         public CourseModel GetSingleCourseModel(int courseId)
         {
+            DepartmentManager aDepartmentManager = new DepartmentManager();
+            SemesterManager aSemesterManager = new SemesterManager();
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM course_tbl WHERE courseId='" + courseId + "'";
             SqlCommand command = new SqlCommand(query, connection);
@@ -286,6 +290,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseLogics
         }
         public List<CourseModel> GetCourseListByDeptId(int deptId)
         {
+            SemesterManager aSemesterManager = new SemesterManager();
+            DepartmentManager aDepartmentManager = new DepartmentManager();
             SqlConnection con = new SqlConnection(connectionString);
             string query = "SELECT * FROM course_tbl WHERE departmentId=@departmentId";
             SqlCommand cmd = new SqlCommand(query, con);

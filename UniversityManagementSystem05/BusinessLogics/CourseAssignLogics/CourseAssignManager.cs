@@ -27,16 +27,15 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         /// <returns>all the departments with id,names from database.</returns>
         public List<DepartmentModel> GetAllDepartments()
         {
-            
             List<DepartmentModel> list = aDepartmentManager.GetAllDepartments();
             return list;
         }
         public List<TeacherModel> GetAllTeachers()
-        {            
+        {
             return aTeacherManager.GetAllTeachers();
         }
         public List<CourseModel> GetAllCourseCodes()
-        {            
+        {
             return aCourseManager.ViewAllCourses();
         }
 
@@ -53,7 +52,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             int creditToBeTaken = aTeacherManager.GetCreditByTeacherId(teacherId);
             return creditToBeTaken;
         }
-        
+
         public CourseModel GetCourseModelByCourseId(int courseId)
         {
             CourseModel aCourseModel = aCourseManager.GetCourseModelByCourseId(courseId);
@@ -85,9 +84,9 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             //I am making an addition to courseId list
             //imtiaj 
             int total = 0;
-            if (courseIdFromAssignedTeachers.Count >0)
+            if (courseIdFromAssignedTeachers.Count > 0)
             {
-                foreach(int i in courseIdFromAssignedTeachers)
+                foreach (int i in courseIdFromAssignedTeachers)
                 {
                     total += aCourseManager.GetCourseCreditByCourseId(i);
                 }
@@ -101,7 +100,7 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         }
         public bool IsCourseExist(int courseID)
         {
-            bool isCourseExists = aCourseAssignGateway.IsCourseExist(courseID);         
+            bool isCourseExists = aCourseAssignGateway.IsCourseExist(courseID);
             return isCourseExists;
         }
         public int DeleteAssignedCourseByCourseAssignId(int AssignedCourseId)
@@ -132,6 +131,22 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             int input = aCourseAssignGateway.SaveCourseAssignToTeacher(courseAssignToTeacherModel);
             return input;
 
+        }
+        public DepartmentModel GetSingleDepartmentByDeptId(int deptId)
+        {
+            return aDepartmentManager.GetDepartmentById(deptId);
+        }
+        public TeacherModel GetSingleTeacherByTeacherId(int TeacherId)
+        {
+            return aTeacherManager.GetTeacherByTeacherId(TeacherId);
+        }
+        public CourseModel GetSingleCourseByCourseId(int CourseId)
+        {
+            return aCourseManager.GetCourseByCourseId(CourseId);
+        }
+        public List<CourseAssignToTeacherModel> GetAllCourseAssignedTeachers()
+        {
+            return aCourseAssignGateway.GetAllCourseAssignedTeachers();
         }
     }
 }

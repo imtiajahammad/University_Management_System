@@ -8,9 +8,10 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 {
     public class DepartmentManager
     {
-        DepartmentGateway aDepartmentGateway = new DepartmentGateway();
+
         public string SaveDepartment(DepartmentModel aDepartmetModel)
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             string message = "";
             if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.DepartmentCode))
             {
@@ -37,7 +38,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
         public List<DepartmentModel> GetAllDepartments()
         {
-
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             List<DepartmentModel> departments = new List<DepartmentModel>();
             departments = aDepartmentGateway.GetAllDepartments();
             return departments;
@@ -47,11 +48,13 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
         public bool IsDepartmentCodeExist(string DeptCode)
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             return aDepartmentGateway.IsDepartmentCodeExist(DeptCode);
         }
 
         public bool IsDepartmentNameExist(string DeptName)
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             return aDepartmentGateway.IsDepartmentNameExist(DeptName);
         }
 
@@ -59,6 +62,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
         public DepartmentModel GetDepartmentById(int DeptId)
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             DepartmentModel aDepartmentModel = new DepartmentModel();
             aDepartmentModel = aDepartmentGateway.GetDepartmentById(DeptId);
             return aDepartmentModel;
@@ -66,6 +70,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
         public int UpdateDepartment(DepartmentModel aDepartmetModel)
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             //            string message = "";
             /*            if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.departmentCode)){
                             return 5;
@@ -89,6 +94,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
         public int DeleteDepartment(int departmentId)
         {
+            DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             //          string message = "";
 
             int rowAffected = aDepartmentGateway.DeleteDepartment(departmentId);

@@ -13,9 +13,11 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
 {
     public class CourseAssignGateway: ConnectionString
     {
-        DepartmentManager aDepartmentManager = new DepartmentManager();
-        CourseManager aCourseManager = new CourseManager();
-        TeacherManager aTeacherManager = new TeacherManager();
+
+        //DepartmentManager aDepartmentManager = new DepartmentManager();
+        //CourseManager aCourseManager = new CourseManager();
+        //TeacherManager aTeacherManager = new TeacherManager();
+        CourseAssignManager aCourseAssignManager = new CourseAssignManager();
         public List<int> GetAssignedCreditByTeacherId(int teacherId)
         {
             List<int> courseIdFromAssignedTeachers = new List<int>();
@@ -26,16 +28,13 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             aSqlCommand.Parameters.AddWithValue("@teacherId", teacherId);
             aSqlConnection.Open();
             SqlDataReader aSqlDataReader = aSqlCommand.ExecuteReader();
-
             while (aSqlDataReader.Read())
             {
                 courseIdFromAssignedTeachers.Add(Convert.ToInt32(aSqlDataReader["courseId"].ToString()) );
             }
             aSqlConnection.Close();
-            return courseIdFromAssignedTeachers;
-            
+            return courseIdFromAssignedTeachers;           
         }
-
         public int SaveCourseAssignToTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -74,9 +73,9 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
                 aCourseAssignToTeacherModel.TeacherId= int.Parse(reader["teacherId"].ToString());
                 
             }
-            aCourseAssignToTeacherModel.Department = aDepartmentManager.GetDepartmentById(aCourseAssignToTeacherModel.CourseAssignToTeacherId);
-            aCourseAssignToTeacherModel.Teacher = aTeacherManager.GetTeacherByTeacherId(aCourseAssignToTeacherModel.TeacherId);
-            aCourseAssignToTeacherModel.Course = aCourseManager.GetCourseByCourseId(aCourseAssignToTeacherModel.CourseId);
+            aCourseAssignToTeacherModel.Department = aCourseAssignManager.GetSingleDepartmentByDeptId(aCourseAssignToTeacherModel.DepartmentId);
+            aCourseAssignToTeacherModel.Teacher = aCourseAssignManager.GetSingleTeacherByTeacherId(aCourseAssignToTeacherModel.TeacherId);
+            aCourseAssignToTeacherModel.Course = aCourseAssignManager.GetSingleCourseByCourseId(aCourseAssignToTeacherModel.CourseId);
 
 
             connection.Close();
@@ -127,7 +126,6 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             }
             return rowAffected;
         }
-
         /// <summary>
         /// check if course is already assigned to another teacher
         /// </summary>
@@ -136,18 +134,13 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
         public bool IsCourseExist(int courseID)
         {
             bool isCourseExists = false;
-
             SqlConnection connection = new SqlConnection(connectionString);
-
             string query = "SELECT CourseID FROM courseAssignToTeacher_tbl WHERE CourseID= @CourseID";
             SqlCommand command = new SqlCommand(query, connection);
-
             command.Parameters.Clear();
-
             //            command.Parameters.Add("DeptCode", SqlDbType.NVarChar);
             //            command.Parameters["DeptCode"].Value = DeptCode;
             command.Parameters.AddWithValue("@CourseID", courseID);
-
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
@@ -155,10 +148,8 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
                 isCourseExists = true;
             }
             connection.Close();
-
             return isCourseExists;
         }
-
         /*
         public bool IsCourseExist(int courseID)
         {
@@ -186,5 +177,34 @@ namespace UniversityManagementSystem05.BusinessLogics.CourseAssignLogics
             return isCourseExists;
         }
         */
+
+        /// <summary>
+        /// to get all courseAssignedToTeacherData
+        /// </summary>
+        /// <returns>returns all courseAssignedToTeacherData</returns>
+        public List<CourseAssignToTeacherModel> GetAllCourseAssignedTeachers()
+        {
+            List<CourseAssignToTeacherModel> coursesAssignToTeacher = new List<CourseAssignToTeacherModel>();
+            SqlConnection con = new SqlConnection(connectionString);
+            string query = "SELECT * FROM courseAssignToTeacher_tbl";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.Clear();
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                CourseAssignToTeacherModel aCourseAssignToTeacherModel = new CourseAssignToTeacherModel();
+                aCourseAssignToTeacherModel.CourseAssignToTeacherId = Convert.ToInt32(reader["ss"].ToString());
+                aCourseAssignToTeacherModel.DepartmentId = Convert.ToInt32(reader[""].ToString());
+                aCourseAssignToTeacherModel.TeacherId= Convert.ToInt32(reader[""].ToString());
+                aCourseAssignToTeacherModel.CourseId= Convert.ToInt32(reader[""].ToString());
+                aCourseAssignToTeacherModel.Department = aCourseAssignManager.GetSingleDepartmentByDeptId(aCourseAssignToTeacherModel.DepartmentId);
+                aCourseAssignToTeacherModel.Teacher = aCourseAssignManager.GetSingleTeacherByTeacherId(aCourseAssignToTeacherModel.TeacherId);
+                aCourseAssignToTeacherModel.Course = aCourseAssignManager.GetSingleCourseByCourseId(aCourseAssignToTeacherModel.CourseId);
+                coursesAssignToTeacher.Add(aCourseAssignToTeacherModel);
+            }
+
+            return coursesAssignToTeacher;
+        }
     }
 }

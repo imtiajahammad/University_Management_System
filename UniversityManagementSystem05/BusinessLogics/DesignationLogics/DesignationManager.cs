@@ -8,15 +8,17 @@ namespace UniversityManagementSystem05.BusinessLogics.DesignationLogics
 {
     public class DesignationManager
     {
-        DesignationGateway aDesignationGateway= new DesignationGateway();
+        
         public List<DesignationModel> GetAllDesignations()
         {
+            DesignationGateway aDesignationGateway = new DesignationGateway();
             List<DesignationModel> designations = new List<DesignationModel>();
             designations = aDesignationGateway.GetAllDesignations();
             return designations;
         }
         public DesignationModel GetDesignationById(int designationId)
         {
+            DesignationGateway aDesignationGateway = new DesignationGateway();
             DesignationModel aDesignationModel = new DesignationModel();
             aDesignationModel = aDesignationGateway.GetDesignationById(designationId);
             return aDesignationModel;

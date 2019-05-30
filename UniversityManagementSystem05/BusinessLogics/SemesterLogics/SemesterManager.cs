@@ -8,10 +8,11 @@ namespace UniversityManagementSystem05.BusinessLogics.SemesterLogics
 {
     public class SemesterManager
     {
-        SemesterGateway aSemesterGateway = new SemesterGateway();
+        
 
         public List<SemesterModel> GetAllSemesters()
         {
+            SemesterGateway aSemesterGateway = new SemesterGateway();
             List<SemesterModel> semesters = new List<SemesterModel>();
             semesters = aSemesterGateway.GetAllSemesters();
             return semesters;
@@ -19,6 +20,7 @@ namespace UniversityManagementSystem05.BusinessLogics.SemesterLogics
 
         public SemesterModel GetSemesterById(int semesterId)
         {
+            SemesterGateway aSemesterGateway = new SemesterGateway();
             return aSemesterGateway.GetSemesterById(semesterId);
         }
     }
