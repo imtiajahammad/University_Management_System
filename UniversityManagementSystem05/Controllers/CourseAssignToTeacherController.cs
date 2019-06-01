@@ -15,10 +15,46 @@ namespace UniversityManagementSystem05.Controllers
     {
         CourseAssignManager aCourseAssignManager = new CourseAssignManager();
         // GET: CourseAssignToTeacher
-        public ActionResult ViewAllAssignedTeachers()
+
+        /// <summary>
+        /// show all courseAssignedToTeachers 
+        /// </summary>
+        /// <param name="messageFromEdit">after saving or updating, this controller is been called. so the save/update message can be sent as parameter if i want</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ViewAllAssignedTeachers(int? messageFromEdit)
         {
+            List<CourseAssignToTeacherModel> CourseAssignToTeachers = new List<CourseAssignToTeacherModel>();
+            CourseAssignToTeachers = aCourseAssignManager.GetAllCourseAssignedTeachers();
+            //return View(CourseAssignToTeachers);
+            if (CourseAssignToTeachers.Count == 0)
+            {
+                string message = "No data in the database for AssignedTeacher";
+                ViewBag.MessageViewCourses = message;
+            }
+            else if (messageFromEdit > 0)
+            {
+                ViewBag.MessageViewCourses = "AssignedTeacher Updated Successfully";
+            }
+            ViewBag.CourseAssignToTeacherModelList = CourseAssignToTeachers;
             return View();
         }
+        //public ActionResult ViewAllCourses(int? messageFromEdit)
+        //{
+        //    List<CourseModel> courses = new List<CourseModel>();
+        //    courses = aCourseAssignManager.ViewAllCourses();
+        //    if (courses.Count == 0)
+        //    {
+        //        string message = "No data in the database for courses";
+        //        ViewBag.MessageViewCourses = message;
+        //    }
+        //    else if (messageFromEdit > 0)
+        //    {
+        //        ViewBag.MessageViewCourses = "Courses Updated Successfully";
+        //    }
+        //    ViewBag.CourseList = courses;
+        //    return View();
+        //}
 
         [HttpGet]
         public ActionResult AssignTeacher()

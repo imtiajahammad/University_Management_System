@@ -14,8 +14,6 @@ namespace UniversityManagementSystem05.Controllers
     {
 
         CourseManager aCourseManager = new CourseManager();
-        SemesterManager aSemesterManager = new SemesterManager();
-        DepartmentManager aDepartmentManager = new DepartmentManager();
 
 
         // GET: Course

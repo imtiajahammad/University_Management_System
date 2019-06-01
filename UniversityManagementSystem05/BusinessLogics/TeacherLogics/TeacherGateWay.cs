@@ -12,8 +12,8 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 {
     public class TeacherGateWay: ConnectionString
     {
-        DesignationManager aDesignationManager = new DesignationManager();
-        DepartmentManager aDepartmentManager = new DepartmentManager();
+        
+        
 
         public bool IsTeacherEmailExist(string teacherEmail)
         {
@@ -82,6 +82,8 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
+                DepartmentManager aDepartmentManager = new DepartmentManager();
+                DesignationManager aDesignationManager = new DesignationManager();
                 TeacherModel aTeacherModel = new TeacherModel();
                 aTeacherModel.TeacherId= Convert.ToInt32(reader["teacherId"].ToString());
                 aTeacherModel.TeacherName = reader["teacherName"].ToString();
@@ -101,6 +103,8 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public TeacherModel GetTeacherForEdit(int teacherId)
         {
+            DepartmentManager aDepartmentManager = new DepartmentManager();
+            DesignationManager aDesignationManager = new DesignationManager();
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM teacher_tbl WHERE teacherId='" + teacherId + "'";
             SqlCommand command = new SqlCommand(query, connection);
@@ -127,6 +131,8 @@ namespace UniversityManagementSystem05.BusinessLogics.TeacherLogics
 
         public List<TeacherModel> GetTeachersByDept(int deptId)
         {
+            DepartmentManager aDepartmentManager = new DepartmentManager();
+            DesignationManager aDesignationManager = new DesignationManager();
             List<TeacherModel> teachers = new List<TeacherModel>();
             SqlConnection connection = new SqlConnection(connectionString);
             string query = "SELECT * FROM teacher_tbl WHERE departmentId='" + deptId + "'";
