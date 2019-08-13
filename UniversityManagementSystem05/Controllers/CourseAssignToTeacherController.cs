@@ -13,7 +13,7 @@ namespace UniversityManagementSystem05.Controllers
 {
     public class CourseAssignToTeacherController : Controller
     {
-        CourseAssignManager aCourseAssignManager = new CourseAssignManager();
+        
         // GET: CourseAssignToTeacher
 
         /// <summary>
@@ -24,6 +24,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult ViewAllAssignedTeachers(int? messageFromEdit)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             List<CourseAssignToTeacherModel> CourseAssignToTeachers = new List<CourseAssignToTeacherModel>();
             CourseAssignToTeachers = aCourseAssignManager.GetAllCourseAssignedTeachers();
             //return View(CourseAssignToTeachers);
@@ -59,6 +60,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpGet]
         public ActionResult AssignTeacher()
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             ViewBag.Departments = aCourseAssignManager.GetAllDepartments();
             ViewBag.Teachers = aCourseAssignManager.GetAllTeachers();
             ViewBag.CourseCodeList = aCourseAssignManager.GetAllCourseCodes();
@@ -67,6 +69,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpPost]
         public ActionResult AssignTeacher(CourseAssignToTeacherModel courseAssignToTeacherModel)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             ViewBag.Departments = aCourseAssignManager.GetAllDepartments();
             ViewBag.Teachers = aCourseAssignManager.GetAllTeachers();
             ViewBag.CourseCodeList = aCourseAssignManager.GetAllCourseCodes();
@@ -106,6 +109,7 @@ namespace UniversityManagementSystem05.Controllers
         /// <returns></returns>
         public JsonResult GetTeacherByDeptId(int deptId)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             List<TeacherModel> teachers = new List<TeacherModel>();
             teachers = aCourseAssignManager.GetTeachersByDeptId(deptId);
             //var teachers = db.Teachers.Where(m => m.DepartmentId == deptId).ToList();
@@ -127,6 +131,7 @@ namespace UniversityManagementSystem05.Controllers
         /// <returns></returns>
         public JsonResult GetCreditByTeacherId(int teacherId)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             int creditToBeTaken = aCourseAssignManager.GetCreditByTeacherId(teacherId);
             return Json(creditToBeTaken, JsonRequestBehavior.AllowGet);
         }
@@ -137,6 +142,7 @@ namespace UniversityManagementSystem05.Controllers
         /// <returns>total remaining credit </returns>
         public JsonResult GetRemainingCreditByTeacherId(int teacherId)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             int creditToBeTaken= aCourseAssignManager.GetCreditByTeacherId(teacherId);
             int remainingCredit;
             int totalAssignedCredit = aCourseAssignManager.GetAssignedCreditByTeacherId(teacherId);
@@ -163,6 +169,7 @@ namespace UniversityManagementSystem05.Controllers
         /// <returns></returns>
         public JsonResult CheckTakenCreditOverFlowsRemainingCredit(int teacherID,int currentCreditTaking)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             int creditToBeTaken = aCourseAssignManager.GetCreditByTeacherId(teacherID);
             int totalAssignedCredit = aCourseAssignManager.GetAssignedCreditByTeacherId(teacherID);
             totalAssignedCredit = totalAssignedCredit + currentCreditTaking;
@@ -180,6 +187,7 @@ namespace UniversityManagementSystem05.Controllers
         [HttpPost]
         public JsonResult GetCourseModelByCourseId(int courseId)
         {
+            CourseAssignManager aCourseAssignManager = new CourseAssignManager();
             CourseModel aCourseModel = new CourseModel();
             aCourseModel = aCourseAssignManager.GetCourseModelByCourseId(courseId);
             return Json(aCourseModel,JsonRequestBehavior.AllowGet);

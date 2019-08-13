@@ -8,11 +8,11 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 {
     public class DepartmentManager
     {
-
         public string SaveDepartment(DepartmentModel aDepartmetModel)
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             string message = "";
+
             if (aDepartmentGateway.IsDepartmentCodeExist(aDepartmetModel.DepartmentCode))
             {
                 message = "Department Code Exists";
@@ -35,7 +35,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             }
             return message;
         }
-
         public List<DepartmentModel> GetAllDepartments()
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();
@@ -43,23 +42,16 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             departments = aDepartmentGateway.GetAllDepartments();
             return departments;
         }
-
-
-
         public bool IsDepartmentCodeExist(string DeptCode)
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             return aDepartmentGateway.IsDepartmentCodeExist(DeptCode);
         }
-
         public bool IsDepartmentNameExist(string DeptName)
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();
             return aDepartmentGateway.IsDepartmentNameExist(DeptName);
         }
-
-
-
         public DepartmentModel GetDepartmentById(int DeptId)
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();
@@ -67,7 +59,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             aDepartmentModel = aDepartmentGateway.GetDepartmentById(DeptId);
             return aDepartmentModel;
         }
-
         public int UpdateDepartment(DepartmentModel aDepartmetModel)
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();
@@ -91,7 +82,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
 
         }
-
         public int DeleteDepartment(int departmentId)
         {
             DepartmentGateway aDepartmentGateway = new DepartmentGateway();

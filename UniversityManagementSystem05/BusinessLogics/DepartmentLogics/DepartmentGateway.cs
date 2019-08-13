@@ -31,9 +31,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
             }
             return rowAffected;
-        }
-
-        
+        }       
         public List<DepartmentModel> GetAllDepartments()
         {
             List<DepartmentModel> departments = new List<DepartmentModel>();
@@ -56,7 +54,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             connection.Close();
             return departments;
         }
-
         public bool IsDepartmentCodeExist(string DeptCode)
         {
             bool isDeptCodeExists = false;
@@ -82,9 +79,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
             return isDeptCodeExists;
         }
-
-
-
         public bool IsDepartmentNameExist(string DeptName)
         {
             bool isDeptNameExists = false;
@@ -110,7 +104,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
 
             return isDeptNameExists;
         }
-
         public string GetDepartmentCodeByDeptName(string Dept)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -132,9 +125,7 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
                 connection.Close();
             }            
             return department;
-        }
-        
-
+        }        
         public DepartmentModel GetDepartmentById(int DeptId)
         {
             
@@ -160,7 +151,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             connection.Close();
             return aDepartmentModel;            
         }
-
         public int UpdateDepartment(DepartmentModel aDepartmentModel)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -184,7 +174,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             }
             return rowAffected;
         }
-
         public int DeleteDepartment(int departmentId)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -206,7 +195,6 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             }
             return rowAffected;
         }
-
         public List<string> GetDepartmentCodeList()
         {
             List<string> departmentCodeList = new List<string>();
@@ -225,9 +213,5 @@ namespace UniversityManagementSystem05.BusinessLogics.DepartmentLogics
             connection.Close();
             return departmentCodeList;
         }
-
-    }
-
-    
-
+    }   
 }
