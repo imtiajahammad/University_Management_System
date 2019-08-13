@@ -123,42 +123,6 @@
             </tr>
         </tbody>
     </table>
-    @*<div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div  >
-                        @if (list.Count != 0)
-                        {
-                            <form method="get" action="ViewAllDepartments">
-                                <fieldset>
-                                    <legend class="text-primary">Deparments with Code and Name</legend>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-condensed table-striped" align="center">
-                                            <tr>
-                                                <th class="info" > <div class="text-center ">Deparment Code</div> </th>
-                                                <th class="info" ><div class="text-center">Deparment Name</div></th>
-                                                <th class="info"  ><div class="text-center ">Action</div></th>
-                                            </tr>
-                                            @foreach (DepartmentModel aDepartmentModel in list)
-                    {
-                                                <tr>
-                                                    <td align="center" > @aDepartmentModel.DepartmentCode </td>
-                                                    <td align="center"> @aDepartmentModel.DepartmentName </td>
-                                                    <td align="center"> <a href="@Url.Action("EditDepartmentFromList", "Department", new { DepartmentId=aDepartmentModel.DepartmentId})">Edit</a> | <a href="@Url.Action("DeleteDepartmentFromList", "Department", new { DepartmentId=aDepartmentModel.DepartmentId})">Delete</a> </td>
-                                                </tr>
-                                            }
-
-                                        </table>
-                                    </div>
-                                </fieldset>
-                            </form>
-
-                        }
-
-                    </div>
-                </div>
-            </div>
-        </div>*@
 
 
 
@@ -166,30 +130,3 @@
 </html>
 
 
-
-@*@if (list.Count != 0)
-{
-    <form method="get" action="ViewAllDepartments">
-        <fieldset>
-            <legend>Deparments with Code and Name</legend>
-
-            <table align="center" border="1">
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                @foreach (DepartmentModel aDepartmentModel in list)
-                {
-                    <tr>
-                        <td align="center"> @aDepartmentModel.departmentCode </td>
-                        <td align="center"> @aDepartmentModel.departmentName </td>
-                        <td align="center"> <a href="@Url.Action("EditDepartmentFromList", "Department", new { departmentId=aDepartmentModel.departmentId})">Edit</a> | <a href="@Url.Action("DeleteDepartmentFromList", "Department", new { departmentId=aDepartmentModel.departmentId})">Delete</a> </td>
-                    </tr>
-                }
-
-            </table>
-        </fieldset>
-    </form>
-
-}*@

@@ -18,6 +18,12 @@ namespace UniversityManagementSystem05.Controllers
         {
             return View();
         }
+
+        public ActionResult Try()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult SaveDepartment(DepartmentModel aDepartmentModel)
         {
